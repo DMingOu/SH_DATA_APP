@@ -1,3 +1,7 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">SH_DATA_APP</string>
+=======
+    <string name = "app_name">SH_DATA_APP</string>
+>>>>>>> afe02f09cc10848e1ff84f59df7e2209b839fa46
 </resources>
