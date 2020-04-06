@@ -9,12 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 
+import me.yokeyword.fragmentation.ISupportActivity;
+import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.SupportActivityDelegate;
+
 /**
  * @description: 基类Activity
  * @author: ODM
  * @date: 2020/4/5
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends SupportActivity {
 
 
     @Override
@@ -41,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     public Resources getResources() {
         return AdaptScreenUtils.adaptWidth(super.getResources(), 750);
     }
+
 
 
 }

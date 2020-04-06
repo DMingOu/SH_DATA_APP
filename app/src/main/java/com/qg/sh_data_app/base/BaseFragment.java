@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import me.yokeyword.fragmentation.SupportFragment;
+
 /**
  * @description: 基类Fragemnt
  * @author: ODM
  * @date: 2020/4/5
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends SupportFragment {
 
     @Nullable
     @Override

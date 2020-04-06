@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 
@@ -18,6 +19,7 @@ import com.qg.sh_data_app.base.BaseFragment;
  */
 public class MainFragment extends BaseFragment {
 
+    private static final String TAG = "MainFragment";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,5 +45,13 @@ public class MainFragment extends BaseFragment {
     @Override
     public void initViews() {
 
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        ToastUtils.showShort(TAG + "消费了返回键事件" );
+        //两次返回才能成功退出
+
+        return true;
     }
 }
