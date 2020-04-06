@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 include ':app'
 rootProject.name='SH_DATA_APP'
-=======
-rootProject.name='SH_DATA_APP'
-include ':app'
->>>>>>> afe02f09cc10848e1ff84f59df7e2209b839fa46
