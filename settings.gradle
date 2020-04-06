@@ -1,2 +1,2 @@
-rootProject.name='SH_DATA_APP'
 include ':app'
+rootProject.name='SH_DATA_APP'
