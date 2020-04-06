@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseActivity;
 
-public class MainActivity extends BaseActivity {
+public class ContainerActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

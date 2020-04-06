@@ -1,4 +1,4 @@
-package com.qg.sh_data_app.base;
+package com.qg.sh_data_app.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,25 +7,27 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+
+import com.qg.sh_data_app.R;
+import com.qg.sh_data_app.base.BaseFragment;
 
 /**
- * @description: 基类Fragemnt
+ * @description: 主界面Fragment,功能菜单
  * @author: ODM
- * @date: 2020/4/5
+ * @date: 2020/4/6
  */
-public abstract class BaseFragment extends Fragment {
+public class MainFragment extends BaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_main , container,false);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initViews();
     }
 
     @Override
@@ -38,9 +40,8 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
     }
 
-    /**
-     * 初始化控件
-     */
-    public abstract void initViews();
+    @Override
+    public void initViews() {
 
+    }
 }

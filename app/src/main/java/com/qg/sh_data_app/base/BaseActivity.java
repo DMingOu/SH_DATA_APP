@@ -1,10 +1,13 @@
 package com.qg.sh_data_app.base;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.blankj.utilcode.util.AdaptScreenUtils;
 
 /**
  * @description: 基类Activity
@@ -29,4 +32,15 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    /**
+     * 屏幕适配，宽度适配，百分比方案
+     * @return 修改后的资源
+     */
+    @Override
+    public Resources getResources() {
+        return AdaptScreenUtils.adaptWidth(super.getResources(), 750);
+    }
+
+
 }
