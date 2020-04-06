@@ -49,9 +49,8 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public boolean onBackPressedSupport() {
-        ToastUtils.showShort(TAG + "消费了返回键事件" );
-        //两次返回才能成功退出
-
-        return true;
+        ToastUtils.showShort(TAG + "触发了返回键事件。返回给Activity处理" );
+        //主页面返回键触发退出App
+        return super.onBackPressedSupport();
     }
 }
