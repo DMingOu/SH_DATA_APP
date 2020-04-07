@@ -61,7 +61,6 @@ public class MainFragment extends BaseFragment {
         binding.viewAvatarMain.setOnClickListener( v -> {
             //测试跳转设置为跳转为地图页
             start(new MapFragment());
-//            replaceFragment(new MainFragment(), true);
         });
     }
 
