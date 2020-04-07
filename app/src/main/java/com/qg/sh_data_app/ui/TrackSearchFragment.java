@@ -39,6 +39,11 @@ public class TrackSearchFragment extends BaseFragment {
     }
 
     @Override
+    public void configStatusBar() {
+
+    }
+
+    @Override
     public void initViews() {
         fragmentTrackSearchBinding.tvTrackBack.setOnClickListener(view -> {
             //返回上一级搜索结果界面

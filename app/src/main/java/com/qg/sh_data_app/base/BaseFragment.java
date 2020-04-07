@@ -30,6 +30,15 @@ public abstract class BaseFragment extends SupportFragment {
         initViews();
     }
 
+    /**
+     * 每次Fragment可见时必定会回调的函数
+     */
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        configStatusBar();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -44,5 +53,10 @@ public abstract class BaseFragment extends SupportFragment {
      * 初始化控件
      */
     public abstract void initViews();
+
+    /**
+     * 配置
+     */
+    public abstract void configStatusBar();
 
 }

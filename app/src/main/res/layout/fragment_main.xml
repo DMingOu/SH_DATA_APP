@@ -63,6 +63,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_add_data_main" />
 
+        <Button
+        android:id = "@+id/btn_sign_situation_main"
+        android:layout_width = "523pt"
+        android:layout_height = "95pt"
+        android:layout_marginTop = "64pt"
+        android:background = "@drawable/shape_button_gradient_blue_fragment_main"
+        android:text = "打卡动态"
+        android:textColor = "#FFFFFF"
+        android:textSize = "36pt"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toBottomOf = "@id/btn__migrate_search_main" />
+
+
         <ImageView
             android:id="@+id/iv_bg_bottom_fragment_main"
             android:layout_width="match_parent"

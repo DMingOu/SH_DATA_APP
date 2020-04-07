@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.leaf.library.StatusBarUtil;
+import com.orhanobut.logger.Logger;
+import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
 
@@ -26,6 +29,8 @@ public class MainFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setDarkMode(this._mActivity);
+        StatusBarUtil.setColor(this._mActivity, getResources().getColor(R.color.white));
         binding = FragmentMainBinding.inflate(inflater , container ,false);
         return binding.getRoot();
     }
@@ -46,6 +51,12 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
+    public void configStatusBar() {
+        StatusBarUtil.setDarkMode(this._mActivity);
+        StatusBarUtil.setColor(this._mActivity, getResources().getColor(R.color.white));
+    }
+
+    @Override
     public void initViews() {
         //增加数据的点击事件
         binding.btnAddDataMain.setOnClickListener( v -> {
@@ -61,7 +72,7 @@ public class MainFragment extends BaseFragment {
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
             //测试跳转设置为跳转为地图页
-            start(new CitySituationFragment());
+            start(new MapFragment());
         });
     }
 

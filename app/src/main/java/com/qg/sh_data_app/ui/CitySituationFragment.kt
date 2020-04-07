@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.leaf.library.StatusBarUtil
+import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.databinding.FragmentCitiesSituationBinding
 
@@ -22,10 +24,17 @@ class CitySituationFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun configStatusBar() {
+        StatusBarUtil.setColor(this._mActivity, resources.getColor(R.color.title_bar_city_situation))
+        StatusBarUtil.setLightMode(_mActivity)
+    }
+
     override fun initViews() {
         //标题栏左方返回按钮的点击事件
         binding.ivBackCitySituation.setOnClickListener {
             pop()
         }
     }
+
+
 }

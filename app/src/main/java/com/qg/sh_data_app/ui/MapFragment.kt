@@ -10,7 +10,9 @@ import android.widget.ZoomControls
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.blankj.utilcode.util.ToastUtils
+import com.leaf.library.StatusBarUtil
 import com.orhanobut.logger.Logger
+import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.core.bean.Data
 import com.qg.sh_data_app.core.bean.HeatMapData
@@ -22,8 +24,6 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
-import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
 /**
@@ -71,6 +71,10 @@ class MapFragment : BaseFragment() {
          }
     }
 
+    override fun configStatusBar() {
+        StatusBarUtil.setDarkMode(_mActivity)
+        StatusBarUtil.setColor(_mActivity, resources.getColor(R.color.white))
+    }
 
     override fun initViews() {
         configMapWidgets()

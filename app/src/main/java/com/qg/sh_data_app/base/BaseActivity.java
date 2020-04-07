@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.blankj.utilcode.util.BarUtils;
+import com.qg.sh_data_app.R;
 
 import me.yokeyword.fragmentation.ISupportActivity;
 import me.yokeyword.fragmentation.SupportActivity;
@@ -46,6 +48,8 @@ public class BaseActivity extends SupportActivity {
     public Resources getResources() {
         return AdaptScreenUtils.adaptWidth(super.getResources(), 750);
     }
+
+
 
 
 

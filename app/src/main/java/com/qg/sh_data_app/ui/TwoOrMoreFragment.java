@@ -33,6 +33,12 @@ public class TwoOrMoreFragment extends BaseFragment {
         super.onDestroy();
     }
 
+
+    @Override
+    public void configStatusBar() {
+
+    }
+
     @Override
     public void initViews() {
         fragmentTwoOrMoreBinding.imvBackTwo.setOnClickListener(view -> {

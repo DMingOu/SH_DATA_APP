@@ -34,6 +34,12 @@ public class MigrationSearchFragment extends BaseFragment {
         super.onDestroy();
     }
 
+
+    @Override
+    public void configStatusBar() {
+
+    }
+
     @Override
     public void initViews() {
         fragmentMigrationSearchBinding.tvBack.setOnClickListener(view -> {

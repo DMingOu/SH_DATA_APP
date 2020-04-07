@@ -6,12 +6,16 @@ import android.util.Log;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.blankj.utilcode.util.BarUtils;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.net.ContentHandler;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 import me.yokeyword.fragmentation.BuildConfig;
@@ -92,4 +96,6 @@ public class App extends Application {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
     }
+
+
 }

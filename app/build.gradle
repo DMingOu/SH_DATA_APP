@@ -92,5 +92,7 @@ dependencies {
 
     // TitleBar
     implementation 'com.github.goweii:ActionBarEx:3.2.2'
+    //沉浸式状态栏
+    implementation 'com.github.Ye-Miao:StatusBarUtil:1.7.5'
 
 }
