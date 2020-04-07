@@ -18,8 +18,8 @@ public class ContainerActivity extends BaseActivity {
         setContentView(R.layout.activity_container);
 
         // 加载根Fragment
-        if (findFragment(MainFragment.class) == null) {
-            loadRootFragment(R.id.fl_fragments_container, new MainFragment());
+        if (findFragment(TrackSearchFragment.class) == null) {
+            loadRootFragment(R.id.fl_fragments_container, new TrackSearchFragment());
         }
     }
 }

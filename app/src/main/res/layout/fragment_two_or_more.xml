@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:background="#5EBEFF">
+        <ImageView
+            android:layout_width="22pt"
+            android:layout_height="31pt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="36pt"
+            android:src="@mipmap/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="2020.04.04 - 2020.04.05"
+            android:textColor="#ffffff"
+            android:textSize="36pt"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="106pt"
+        android:background="#5EBEFF">
+        <Button
+            android:layout_width="721pt"
+            android:layout_height="67pt"
+            android:background="@drawable/bg_search_btn"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/search"
+            android:paddingStart="22pt"
+            android:drawablePadding="20pt"
+            android:text="搜索学生轨迹"
+            android:textColor="#9C9B9B"
+            android:textSize="26pt"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_two_day_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
