@@ -14,8 +14,8 @@ import com.leaf.library.StatusBarUtil
 import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
-import com.qg.sh_data_app.core.bean.Data
 import com.qg.sh_data_app.core.bean.HeatMapData
+import com.qg.sh_data_app.core.bean.HeatMapDots
 import com.qg.sh_data_app.core.net.RetrofitManager
 import com.qg.sh_data_app.databinding.FragmentMapBinding
 import io.reactivex.Observable
@@ -128,7 +128,7 @@ class MapFragment : BaseFragment() {
                 })
     }
 
-    private fun showHeatMapData( dots : List<Data>? ){
+    private fun showHeatMapData( dots : List<HeatMapDots>? ){
         val observable: Observable<HeatMap> = Observable.create(ObservableOnSubscribe<HeatMap > {
             val heatDotList : MutableList<WeightedLatLng> = mutableListOf()
             dots?.forEach {

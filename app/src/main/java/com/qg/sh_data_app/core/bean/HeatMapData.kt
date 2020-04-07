@@ -11,12 +11,12 @@ data class HeatMapData(
     @SerializedName("code")
     val code: String,
     @SerializedName("data")
-    val data: List<Data>,
+    val data: List<HeatMapDots>,
     @SerializedName("message")
     val message: String
 )
 
-data class Data(
+data class HeatMapDots(
     @SerializedName("count")
     val count: Int,
     @SerializedName("lat")

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
        android:id = "@+id/cl_city_situation"
        xmlns:android = "http://schemas.android.com/apk/res/android"
        android:layout_width = "match_parent"
        android:layout_height = "match_parent"
+       android:orientation="vertical"
        xmlns:app = "http://schemas.android.com/apk/res-auto">
 
-       <androidx.constraintlayout.widget.ConstraintLayout
+       <RelativeLayout
           android:id = "@+id/cl_title_city_situation"
           android:layout_width="match_parent"
           android:layout_height="88pt"
@@ -16,28 +17,29 @@
 
                 <ImageView
                 android:id = "@+id/iv_back_city_situation"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
+                android:layout_width = "22pt"
+                android:layout_height = "31pt"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="36pt"
-                android:scaleType = "fitStart"
-                android:src = "@mipmap/ic_back_left_white_titlebar"
-                app:layout_constraintBottom_toBottomOf = "parent"
-                app:layout_constraintTop_toTopOf = "parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:src = "@mipmap/back"
+                />
 
                 <TextView
                 android:id = "@+id/tv_title_time_city_situation"
                 android:layout_width = "wrap_content"
-                android:layout_height = "match_parent"
-                android:gravity = "center"
+                android:layout_height = "wrap_content"
+                android:layout_centerInParent="true"
                 android:text = "2020-04-04"
                 android:textColor = "#FFFFFF"
                 android:textSize = "36pt"
-                app:layout_constraintEnd_toEndOf = "parent"
-                app:layout_constraintStart_toStartOf = "parent" />
+                />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
 
+       <androidx.recyclerview.widget.RecyclerView
+       android:id = "@+id/rv_area_situation"
+       android:layout_width = "match_parent"
+       android:layout_height = "match_parent"
+       />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -28,7 +28,7 @@
       <View
       android:layout_width = "wrap_content"
       android:layout_height = "3pt"
-      android:background="#ffebe9e9"
+      android:background="@color/bg_divide_line"
       android:layout_alignParentBottom="true"
       />
 
