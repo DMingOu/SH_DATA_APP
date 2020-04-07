@@ -4,8 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
 import java.net.ContentHandler;
-import java.util.logging.Logger;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -28,6 +31,8 @@ public class App extends Application {
         context  = getApplicationContext();
         initRxJavaOnErrorHandle();
         initFragmentation();
+        initLiveEventConfig();
+        initLogger();
     }
 
     public static Context getContext(){
@@ -35,7 +40,7 @@ public class App extends Application {
     }
 
     public void initLogger(){
-
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     public void initFragmentation(){
@@ -67,5 +72,13 @@ public class App extends Application {
                 }
             }
         });
+    }
+
+    private void initLiveEventConfig(){
+        LiveEventBus
+                .config()
+                //配置在没有Observer关联的时候是否自动清除LiveEvent以释放内存（默认值false）
+                .autoClear(true)
+                .lifecycleObserverAlwaysActive(true);
     }
 }

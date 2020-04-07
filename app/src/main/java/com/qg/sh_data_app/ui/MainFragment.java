@@ -55,4 +55,7 @@ public class MainFragment extends BaseFragment {
         //主页面返回键触发退出App
         return super.onBackPressedSupport();
     }
+
+
+
 }
