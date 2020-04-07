@@ -20,6 +20,8 @@ import com.qg.sh_data_app.base.BaseFragment;
 public class MainFragment extends BaseFragment {
 
     private static final String TAG = "MainFragment";
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

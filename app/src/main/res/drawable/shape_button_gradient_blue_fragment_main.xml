@@ -22,7 +22,6 @@
     <corners android:radius="12pt" />
 
     <!-- 渐变 -->
-
     <gradient
     android:type="linear"
     android:startColor="#ff8cbcf9"
