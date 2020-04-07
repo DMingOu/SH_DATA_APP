@@ -1,5 +1,6 @@
 package com.qg.sh_data_app.base;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.PersistableBundle;

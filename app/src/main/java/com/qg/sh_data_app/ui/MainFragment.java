@@ -49,12 +49,13 @@ public class MainFragment extends BaseFragment {
     public void initViews() {
         //增加数据的点击事件
         binding.btnAddDataMain.setOnClickListener( v -> {
-
+            //跳转至文件管理器选择文件
         });
 
         //迁移搜索的点击事件
         binding.btnMigrateSearchMain.setOnClickListener( v-> {
             //
+            start(new MigrationSearchFragment());
         });
 
         //左上角头像的点击事件

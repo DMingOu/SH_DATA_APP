@@ -21,7 +21,6 @@ public class ContainerActivity extends BaseActivity {
         setContentView(R.layout.activity_container);
 
         // 加载根Fragment
-        // 如果未登录则加载登录页，再由登录页进入主页面
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_fragments_container, new MainFragment());
         }
