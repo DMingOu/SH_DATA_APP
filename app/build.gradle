@@ -95,5 +95,7 @@ dependencies {
     //Fragment管理框架
     implementation 'me.xuexuan:fragmentationx:1.0.5'
 
+    // TitleBar
+    implementation 'com.github.goweii:ActionBarEx:3.2.2'
 
 }

@@ -5,16 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.baidu.mapapi.map.Gradient
-import com.baidu.mapapi.map.HeatMap
-import com.baidu.mapapi.map.WeightedLatLng
+import android.widget.ImageView
+import android.widget.ZoomControls
+import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.blankj.utilcode.util.ToastUtils
 import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.base.BaseFragment
-import com.qg.sh_data_app.core.net.RetrofitManager
 import com.qg.sh_data_app.core.bean.Data
 import com.qg.sh_data_app.core.bean.HeatMapData
+import com.qg.sh_data_app.core.net.RetrofitManager
 import com.qg.sh_data_app.databinding.FragmentMapBinding
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
@@ -22,6 +22,8 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
+import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
 /**
@@ -34,7 +36,7 @@ class MapFragment : BaseFragment() {
     private var _binding : FragmentMapBinding ?= null
     private val binding get() = _binding!!
 
-    private lateinit var mDisposable : Disposable
+    private  var mDisposable : Disposable ?= null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMapBinding.inflate(inflater , container , false)
@@ -64,14 +66,34 @@ class MapFragment : BaseFragment() {
         //执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
          _binding = null
          //断开本次网络请求
-         if(! mDisposable.isDisposed){
-             mDisposable.dispose()
+         if(mDisposable?.isDisposed == false){
+             mDisposable?.dispose()
          }
     }
 
 
     override fun initViews() {
+        configMapWidgets()
+    }
 
+    /**
+     * 对百度地图内部的元素进行配置
+     */
+    private fun configMapWidgets(){
+
+        //隐藏指南针
+        binding.mapView.map.getUiSettings().setCompassEnabled(false);
+        // 隐藏logo
+        val child: View = binding.mapView.getChildAt(1)
+        if (child != null && (child is ImageView || child is ZoomControls)) {
+            child.visibility = View.INVISIBLE
+        }
+        //隐藏比例尺图标
+        binding.mapView.showScaleControl(false)
+        //隐藏放大缩小按钮
+        binding.mapView.showZoomControls(false)
+        //隐藏地图POI
+//        binding.mapView.map.showMapPoi(false)
     }
 
     private fun getHeatMapData(){
@@ -126,5 +148,13 @@ class MapFragment : BaseFragment() {
         val disposable: Disposable = observable.subscribe {
             binding.mapView.map.addHeatMap(it)
         }
+        val mMapStatus = MapStatus.Builder()
+                        .target(LatLng( 25.0 , 113.0))
+                        .zoom(7.7F) //8级刚好可以显示广东省
+                        .build()
+        val mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+        binding.mapView.map.animateMapStatus(mapStatusUpdate)
+
     }
+
 }

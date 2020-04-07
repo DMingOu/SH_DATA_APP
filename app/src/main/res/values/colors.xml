@@ -5,4 +5,7 @@
     <color name = "colorAccent">#03DAC5</color>
 
     <color name = "bg_divide_line">#F1F1F1</color>
+
+    <!--状态栏颜色-->
+    <color name="view_status_bar">#00000000</color>
 </resources>

@@ -60,13 +60,13 @@ public class MainFragment extends BaseFragment {
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
             //测试跳转设置为跳转为地图页
-            start(new MapFragment());
+            start(new CitySituationFragment());
         });
     }
 
     @Override
     public boolean onBackPressedSupport() {
-        ToastUtils.showShort(TAG + "触发了返回键事件。返回给Activity处理" );
+        ToastUtils.showShort(TAG + "触发了返回键事件,退出APP" );
         //主页面返回键触发退出App
         return super.onBackPressedSupport();
     }
