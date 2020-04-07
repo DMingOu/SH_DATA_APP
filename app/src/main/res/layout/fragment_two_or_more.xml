@@ -9,6 +9,7 @@
         android:layout_height="88pt"
         android:background="#5EBEFF">
         <ImageView
+            android:id="@+id/imv_back_two"
             android:layout_width="22pt"
             android:layout_height="31pt"
             android:layout_centerVertical="true"
@@ -28,6 +29,7 @@
         android:layout_height="106pt"
         android:background="#5EBEFF">
         <Button
+            android:id="@+id/btn_go_to_track_search"
             android:layout_width="721pt"
             android:layout_height="67pt"
             android:background="@drawable/bg_search_btn"

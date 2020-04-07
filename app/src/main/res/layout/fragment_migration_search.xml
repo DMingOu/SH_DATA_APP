@@ -180,7 +180,6 @@
 
     <Button
         android:id="@+id/btn_search"
-        android:visibility="visible"
         android:layout_width="569pt"
         android:layout_height="72pt"
         android:layout_marginTop="73pt"
