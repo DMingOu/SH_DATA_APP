@@ -12,7 +12,7 @@ import com.qg.sh_data_app.databinding.FragmentMapBinding
  * @author: ODM
  * @date: 2020/4/7
  */
-class MapPage : BaseFragment() {
+class MapFragment : BaseFragment() {
 
     private var _binding : FragmentMapBinding ?= null
     private val binding get() = _binding!!
