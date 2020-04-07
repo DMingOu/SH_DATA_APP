@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
+import com.qg.sh_data_app.databinding.FragmentMainBinding;
 
 /**
  * @description: 主界面Fragment,功能菜单
@@ -20,13 +20,14 @@ import com.qg.sh_data_app.base.BaseFragment;
 public class MainFragment extends BaseFragment {
 
     private static final String TAG = "MainFragment";
+    private FragmentMainBinding binding = null;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main , container,false);
-        return view;
+        binding = FragmentMainBinding.inflate(inflater , container ,false);
+        return binding.getRoot();
     }
 
     @Override
@@ -46,7 +47,21 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void initViews() {
+        //增加数据的点击事件
+        binding.btnAddDataMain.setOnClickListener( v -> {
 
+        });
+
+        //迁移搜索的点击事件
+        binding.btnMigrateSearchMain.setOnClickListener( v-> {
+            //
+        });
+
+        //左上角头像的点击事件
+        binding.viewAvatarMain.setOnClickListener( v -> {
+            //测试跳转设置为跳转为地图页
+            start(new MapFragment());
+        });
     }
 
     @Override
@@ -55,4 +70,7 @@ public class MainFragment extends BaseFragment {
         //主页面返回键触发退出App
         return super.onBackPressedSupport();
     }
+
+
+
 }
