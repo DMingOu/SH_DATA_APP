@@ -3,9 +3,13 @@ package com.qg.sh_data_app.core.net;
 
 
 import com.qg.sh_data_app.core.bean.HeatMapData;
+import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -31,5 +35,11 @@ public interface ApiService {
     @POST("api/student/heatMap")
     Observable<HeatMapData> getHeatMapData(@Query("time") String timeString);
 
-
+    /**
+     * 迁移数据搜索（包括搜索某段时间的全部迁移学生和搜索某段时间内某个学生）
+     * @return 搜索结果
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/student/migrate")
+    Observable<TwoOrMoreData> getSearchResultData(@Body RequestBody info);
 }

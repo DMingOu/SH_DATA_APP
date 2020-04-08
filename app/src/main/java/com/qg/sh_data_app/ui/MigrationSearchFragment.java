@@ -44,7 +44,7 @@ public class MigrationSearchFragment extends BaseFragment {
     public void initViews() {
         fragmentMigrationSearchBinding.tvBack.setOnClickListener(view -> {
             //返回主界面
-
+            pop();
         });
         fragmentMigrationSearchBinding.tvNumber.setOnClickListener(view -> {
             //选择查看天数
@@ -69,7 +69,6 @@ public class MigrationSearchFragment extends BaseFragment {
         });
         fragmentMigrationSearchBinding.btnSearch.setOnClickListener(view -> {
             //点击搜索,传相关数据给下一个界面
-            start(new TwoOrMoreFragment());
             if(fragmentMigrationSearchBinding.tvNumber.getText().toString().equals("一天")){
                 //获取选择的时间
                 String time = fragmentMigrationSearchBinding.tvOneTime.getText().toString();
@@ -81,6 +80,8 @@ public class MigrationSearchFragment extends BaseFragment {
                 String endTime = fragmentMigrationSearchBinding.tvEndTime.getText().toString();
                 //跳转迁移轨迹页面
                 start(new TwoOrMoreFragment());
+                //传递数据
+
             }
         });
     }
