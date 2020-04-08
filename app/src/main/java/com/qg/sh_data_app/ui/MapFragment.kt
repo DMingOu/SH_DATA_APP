@@ -97,6 +97,8 @@ class MapFragment : BaseFragment() {
     override fun initViews() {
         configMapWidgets()
 
+
+
         binding.rvStudentMigrate.layoutManager = LinearLayoutManager(activity)
         rvAdapter = StudentMigrateAdapter(mutableListOf())
         binding.rvStudentMigrate.adapter = rvAdapter
@@ -109,121 +111,112 @@ class MapFragment : BaseFragment() {
             }
         }
 
-        val demo : SingleStudentMigrateData = GsonUtils.fromJson("{\n" +
-                    "            \"studentName\": \"李泽创\",\n" +
-                    "            \"studentId\": \"12345678903\",\n" +
-                    "            \"migrate\": [\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 118.796875,\n" +
-                    "                        \"lat\": 32.060253,\n" +
-                    "                        \"time\": \"2020-04-01\",\n" +
-                    "                        \"city\": \"南京市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 114.05787,\n" +
-                    "                        \"lat\": 22.543098,\n" +
-                    "                        \"time\": \"2020-04-02\",\n" +
-                    "                        \"city\": \"深圳市\"\n" +
-                    "                    }\n" +
-                    "                },\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 114.05787,\n" +
-                    "                        \"lat\": 22.543098,\n" +
-                    "                        \"time\": \"2020-04-02\",\n" +
-                    "                        \"city\": \"深圳市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 112.93881,\n" +
-                    "                        \"lat\": 28.228209,\n" +
-                    "                        \"time\": \"2020-04-03\",\n" +
-                    "                        \"city\": \"长沙市\"\n" +
-                    "                    }\n" +
-                    "                },\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 112.93881,\n" +
-                    "                        \"lat\": 28.228209,\n" +
-                    "                        \"time\": \"2020-04-03\",\n" +
-                    "                        \"city\": \"长沙市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 113.121414,\n" +
-                    "                        \"lat\": 23.021547,\n" +
-                    "                        \"time\": \"2020-04-04\",\n" +
-                    "                        \"city\": \"佛山市\"\n" +
-                    "                    }\n" +
-                    "                },\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 113.121414,\n" +
-                    "                        \"lat\": 23.021547,\n" +
-                    "                        \"time\": \"2020-04-04\",\n" +
-                    "                        \"city\": \"佛山市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 113.264435,\n" +
-                    "                        \"lat\": 23.129162,\n" +
-                    "                        \"time\": \"2020-04-05\",\n" +
-                    "                        \"city\": \"广州市\"\n" +
-                    "                    }\n" +
-                    "                },\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 113.264435,\n" +
-                    "                        \"lat\": 23.129162,\n" +
-                    "                        \"time\": \"2020-04-05\",\n" +
-                    "                        \"city\": \"广州市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 121.4737,\n" +
-                    "                        \"lat\": 31.230415,\n" +
-                    "                        \"time\": \"2020-04-06\",\n" +
-                    "                        \"city\": \"上海市\"\n" +
-                    "                    }\n" +
-                    "                },\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 121.4737,\n" +
-                    "                        \"lat\": 31.230415,\n" +
-                    "                        \"time\": \"2020-04-06\",\n" +
-                    "                        \"city\": \"上海市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 104.06654,\n" +
-                    "                        \"lat\": 30.57227,\n" +
-                    "                        \"time\": \"2020-04-07\",\n" +
-                    "                        \"city\": \"成都市\"\n" +
-                    "                    }\n" +
-                    "                },\n" +
-                    "                {\n" +
-                    "                    \"from\": {\n" +
-                    "                        \"lng\": 104.06654,\n" +
-                    "                        \"lat\": 30.57227,\n" +
-                    "                        \"time\": \"2020-04-07\",\n" +
-                    "                        \"city\": \"成都市\"\n" +
-                    "                    },\n" +
-                    "                    \"to\": {\n" +
-                    "                        \"lng\": 81.324135,\n" +
-                    "                        \"lat\": 43.916824,\n" +
-                    "                        \"time\": \"2020-04-08\",\n" +
-                    "                        \"city\": \"伊犁市\"\n" +
-                    "                    }\n" +
-                    "                }\n" +
-                    "            ]\n" +
-                    "        }"  , SingleStudentMigrateData::class.java)
+/*        val demo : SingleStudentMigrateData = GsonUtils.fromJson("{\n" +
+                "            \"studentName\": \"李泽创\",\n" +
+                "            \"studentId\": \"12345678903\",\n" +
+                "            \"migrate\": [\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 118.796875,\n" +
+                "                        \"lat\": 32.060253,\n" +
+                "                        \"time\": \"2020-04-01\",\n" +
+                "                        \"city\": \"南京市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 114.05787,\n" +
+                "                        \"lat\": 22.543098,\n" +
+                "                        \"time\": \"2020-04-02\",\n" +
+                "                        \"city\": \"深圳市\"\n" +
+                "                    }\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 114.05787,\n" +
+                "                        \"lat\": 22.543098,\n" +
+                "                        \"time\": \"2020-04-02\",\n" +
+                "                        \"city\": \"深圳市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 112.93881,\n" +
+                "                        \"lat\": 28.228209,\n" +
+                "                        \"time\": \"2020-04-03\",\n" +
+                "                        \"city\": \"长沙市\"\n" +
+                "                    }\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 112.93881,\n" +
+                "                        \"lat\": 28.228209,\n" +
+                "                        \"time\": \"2020-04-03\",\n" +
+                "                        \"city\": \"长沙市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 113.121414,\n" +
+                "                        \"lat\": 23.021547,\n" +
+                "                        \"time\": \"2020-04-04\",\n" +
+                "                        \"city\": \"佛山市\"\n" +
+                "                    }\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 113.121414,\n" +
+                "                        \"lat\": 23.021547,\n" +
+                "                        \"time\": \"2020-04-04\",\n" +
+                "                        \"city\": \"佛山市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 113.264435,\n" +
+                "                        \"lat\": 23.129162,\n" +
+                "                        \"time\": \"2020-04-05\",\n" +
+                "                        \"city\": \"广州市\"\n" +
+                "                    }\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 113.264435,\n" +
+                "                        \"lat\": 23.129162,\n" +
+                "                        \"time\": \"2020-04-05\",\n" +
+                "                        \"city\": \"广州市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 121.4737,\n" +
+                "                        \"lat\": 31.230415,\n" +
+                "                        \"time\": \"2020-04-06\",\n" +
+                "                        \"city\": \"上海市\"\n" +
+                "                    }\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 121.4737,\n" +
+                "                        \"lat\": 31.230415,\n" +
+                "                        \"time\": \"2020-04-06\",\n" +
+                "                        \"city\": \"上海市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 104.06654,\n" +
+                "                        \"lat\": 30.57227,\n" +
+                "                        \"time\": \"2020-04-07\",\n" +
+                "                        \"city\": \"成都市\"\n" +
+                "                    }\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"from\": {\n" +
+                "                        \"lng\": 104.06654,\n" +
+                "                        \"lat\": 30.57227,\n" +
+                "                        \"time\": \"2020-04-07\",\n" +
+                "                        \"city\": \"成都市\"\n" +
+                "                    },\n" +
+                "                    \"to\": {\n" +
+                "                        \"lng\": 81.324135,\n" +
+                "                        \"lat\": 43.916824,\n" +
+                "                        \"time\": \"2020-04-08\",\n" +
+                "                        \"city\": \"伊犁市\"\n" +
+                "                    }\n" +
+                "                }\n" +
+                "            ]\n" +
+                "        }"  , SingleStudentMigrateData::class.java)
 
-            showSingleStudentMigrateTrack(demo)
-
-
-
-
-
-
-        //测试按钮点击事件
-//        binding.btnTest.setOnClickListener {
-//    }
+        showSingleStudentMigrateTrack(demo)*/
     }
 
     /**
@@ -256,7 +249,7 @@ class MapFragment : BaseFragment() {
                 .observeSticky(this, Observer<HeatMapData> {
                      showHeatMapData(it.data)
                 })
-        //粘性注册，收到特定学生的事件
+        //粘性注册，收到展示特定学生迁移轨迹的事件
         LiveEventBus
                 .get(Constants.SHOW_MIGRATE_TRACK , SingleStudentMigrateData::class.java)
                 .observeSticky(this , Observer<SingleStudentMigrateData>{
@@ -268,6 +261,7 @@ class MapFragment : BaseFragment() {
     /**
      * 展示学生轨迹
      * @param data SingleStudentMigrateData
+     * Todo 开线程执行
      */
     private fun showSingleStudentMigrateTrack(data : SingleStudentMigrateData){
         //地图画线
