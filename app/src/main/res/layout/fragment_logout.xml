@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:orientation="vertical"
+              xmlns:tools = "http://schemas.android.com/tools">
+         
+
+         <RelativeLayout
+         android:layout_width = "match_parent"
+         android:layout_height = "122pt"
+         android:background="@color/white"
+         android:layout_marginTop="47pt"
+         >
+         
+            <ImageView
+            android:id = "@+id/iv_avatar_logout"
+            android:layout_width = "81pt"
+            android:layout_height = "81pt"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="36pt"
+            android:background="@drawable/avatar_circle_main"
+            android:transitionName="@string/share_elements_iv_avatar"
+            />
+
+            <TextView
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_toEndOf= "@id/iv_avatar_logout"
+            android:layout_marginStart="34pt"
+            android:layout_centerVertical="true"
+            tools:text = "菜寻鲲"
+            android:textSize = "34pt"
+            android:textColor="#3D3A3A"
+            />
+
+         
+         
+         </RelativeLayout>
+
+
+         <TextView
+         android:id = "@+id/tv_logout"
+         android:layout_width = "match_parent"
+         android:layout_height = "75pt"
+         android:gravity="center"
+         android:background="@color/white"
+         android:layout_marginTop="35pt"
+         android:text ="退出登录"
+         android:textColor = "#FA3F3F"
+         android:textSize="34pt"
+         />
+
+
+</LinearLayout>

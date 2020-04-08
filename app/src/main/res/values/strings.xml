@@ -7,4 +7,6 @@
     <string name = "account_number">"账号"</string>
     <string name = "account_password">"密码"</string>
 
+    <string name = "share_elements_iv_avatar">"avatar"</string>
+
 </resources>

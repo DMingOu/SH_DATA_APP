@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     >
 
-        <View
+        <ImageView
             android:id="@+id/view_avatar_main"
             android:layout_width="66pt"
             android:layout_height="66pt"
@@ -15,7 +15,9 @@
             android:layout_marginTop="32pt"
             android:background="@drawable/avatar_circle_main"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:transitionName="@string/share_elements_iv_avatar"
+             />
 
         <TextView
             android:id="@+id/tv_welcome"

@@ -1,6 +1,8 @@
 package com.qg.sh_data_app.ui;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +10,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.leaf.library.StatusBarUtil;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
 import com.qg.sh_data_app.ui.Area_Situation.CitySituationFragment;
+import com.qg.sh_data_app.ui.login.LogoutFragment;
 
 
 /**
@@ -70,8 +74,18 @@ public class MainFragment extends BaseFragment {
 
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
-            //测试跳转设置为跳转为地图页
-            start(new CitySituationFragment());
+            LogoutFragment fragment = new  LogoutFragment();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                setExitTransition(new Fade());
+                fragment.setEnterTransition(new Fade());
+                fragment.setSharedElementEnterTransition(new Fade());
+                fragment.setSharedElementReturnTransition(new Fade());
+                extraTransaction()
+                        .addSharedElement(binding.viewAvatarMain, StringUtils.getString(R.string.share_elements_iv_avatar))
+                        .start(fragment);
+            } else {
+                start(fragment);
+            }
         });
     }
 
