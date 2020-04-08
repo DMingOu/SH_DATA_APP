@@ -3,9 +3,13 @@ package com.qg.sh_data_app.core.net;
 
 
 import com.qg.sh_data_app.core.bean.HeatMapData;
+import com.qg.sh_data_app.core.bean.LoginCallback;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -30,6 +34,16 @@ public interface ApiService {
      */
     @POST("api/student/heatMap")
     Observable<HeatMapData> getHeatMapData(@Query("time") String timeString);
+
+
+    /**
+     * 根据请求调用登录api
+     * @param loginRequestBody 登录请求Body
+     * @return 登录回调
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("api/user/login")
+    Observable<LoginCallback> postLoginRequest(@Body RequestBody loginRequestBody);
 
 
 }

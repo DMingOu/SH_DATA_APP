@@ -1,13 +1,14 @@
 package com.qg.sh_data_app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.leaf.library.StatusBarUtil;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseActivity;
+import com.qg.sh_data_app.core.Constants;
+import com.qg.sh_data_app.ui.login.LoginFragment;
 
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
@@ -20,15 +21,16 @@ public class ContainerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configStatusBar();
         setContentView(R.layout.activity_container);
 
-        // 加载根Fragment
-        if (findFragment(MainFragment.class) == null) {
+        if("".equals(SPUtils.getInstance().getString(Constants.USER_AUTHORIZATION,""))){
+            //没有登录信息存在，跳转至登录页
+            loadRootFragment(R.id.fl_fragments_container, new LoginFragment());
+        }
+        else if (findFragment(MainFragment.class) == null) {
+            //存在登录信息，存入主页面
             loadRootFragment(R.id.fl_fragments_container, new MainFragment());
         }
-
-        configStatusBar();
     }
 
     /**
@@ -49,8 +51,4 @@ public class ContainerActivity extends BaseActivity {
         return new DefaultHorizontalAnimator();
     }
 
-    private void configStatusBar(){
-        //设置沉浸式状态栏
-//        StatusBarUtil.setColor(this,getResources().getColor(R.color.white));
-    }
 }

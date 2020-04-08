@@ -14,7 +14,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @description: 持久化Header Okhttp拦截器类
+ * @description: 持久化&请求前附带 Header 字段 Okhttp拦截器类
  * @author: ODM
  * @date: 2020/4/7
  */
@@ -26,7 +26,9 @@ public class RetainHeaderInterceptor implements Interceptor {
 
         Request.Builder builder = chain.request().newBuilder();
 
-        if (!SPUtils.getInstance().getString(Constants.USER_AUTHORIZATION,"").equals("")) {
+        //若Authorization 字段的值非空字符串
+        //则在请求前，附带上 Authorization 字段的值
+        if (!"".equals(SPUtils.getInstance().getString(Constants.USER_AUTHORIZATION,""))) {
             String authorization = SPUtils.getInstance().getString(Constants.USER_AUTHORIZATION);
             builder.addHeader("Authorization", authorization);
         }
