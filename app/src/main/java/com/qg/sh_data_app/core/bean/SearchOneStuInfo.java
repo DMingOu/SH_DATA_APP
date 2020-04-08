@@ -3,6 +3,7 @@ package com.qg.sh_data_app.core.bean;
 public class SearchOneStuInfo {
 
 
+
     /**
      * startTime : 2020-01-01
      * endTime : 2020-01-03

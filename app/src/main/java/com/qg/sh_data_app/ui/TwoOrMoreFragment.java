@@ -19,6 +19,10 @@ import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentTwoOrMoreBinding;
 import com.qg.sh_data_app.util.GsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -37,6 +41,7 @@ public class TwoOrMoreFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentTwoOrMoreBinding = FragmentTwoOrMoreBinding.inflate(inflater, container,false);
+        EventBus.getDefault().register(this);
         return fragmentTwoOrMoreBinding.getRoot();
     }
 
@@ -48,6 +53,7 @@ public class TwoOrMoreFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -64,17 +70,20 @@ public class TwoOrMoreFragment extends BaseFragment {
         });
         fragmentTwoOrMoreBinding.btnGoToTrackSearch.setOnClickListener(view -> {
             //传递时间数据
-
+            SearchOneStuInfo oneStuInfo = new SearchOneStuInfo();
+            oneStuInfo.setStartTime(fragmentTwoOrMoreBinding.tvTwoStartTime.getText().toString());
+            oneStuInfo.setEndTime(fragmentTwoOrMoreBinding.tvTwoEndTime.getText().toString());
+            EventBus.getDefault()
+                    .post(oneStuInfo);
             //跳转至轨迹搜索界面
             start(new TrackSearchFragment());
         });
     }
 
     //根据上一个fragment传来的时间进行搜索
-    public void search(String startTime, String endTime){
-        SearchAllStuInfo info = new SearchAllStuInfo();
-        info.setStartTime(startTime);
-        info.setEndTime(endTime);
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void search(SearchAllStuInfo info){
+        initTitle(info.getStartTime(),info.getEndTime());
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtil.GsonString(info));
         RetrofitManager.getInstance()
                 .getApiService()
@@ -110,5 +119,11 @@ public class TwoOrMoreFragment extends BaseFragment {
     //初始化列表
     private void initList(List<TwoOrMoreData.DataBean> dataBeanList){
 
+    }
+
+    //初始化标题
+    private void initTitle(String start, String end){
+        fragmentTwoOrMoreBinding.tvTwoStartTime.setText(start);
+        fragmentTwoOrMoreBinding.tvTwoEndTime.setText(end);
     }
 }

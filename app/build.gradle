@@ -95,6 +95,8 @@ dependencies {
     //沉浸式状态栏
     implementation 'com.github.Ye-Miao:StatusBarUtil:1.7.5'
 
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
