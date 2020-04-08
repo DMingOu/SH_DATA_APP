@@ -30,8 +30,6 @@ public class MainFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        StatusBarUtil.setDarkMode(this._mActivity);
-        StatusBarUtil.setColor(this._mActivity, getResources().getColor(R.color.white));
         binding = FragmentMainBinding.inflate(inflater , container ,false);
         return binding.getRoot();
     }
