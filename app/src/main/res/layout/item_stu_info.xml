@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="124pt"
+        android:layout_marginStart="58pt"
+        android:layout_marginEnd="14pt"
+        android:layout_marginTop="15pt">
+        <TextView
+            android:id="@+id/tv_stu_name"
+            android:layout_width="wrap_content"
+            android:layout_height="42pt"
+            android:gravity="center"
+            android:text="蔡徐坤"
+            android:textColor="#343434"
+            android:textSize="30pt"/>
+        <TextView
+            android:id="@+id/tv_stu_number"
+            android:layout_width="wrap_content"
+            android:layout_height="42pt"
+            android:layout_marginStart="25pt"
+            android:layout_toEndOf="@+id/tv_stu_name"
+            android:gravity="center"
+            android:text="3219003333"
+            android:textColor="#414141"
+            android:textSize="28sp"/>
+        <TextView
+            android:id="@+id/tv_stu_migrate_number_string"
+            android:layout_width="wrap_content"
+            android:layout_height="37pt"
+            android:layout_marginTop="69pt"
+            android:text="该段时间有"
+            android:textColor="#343434"
+            android:textSize="26pt"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_stu_migrate_number"
+            android:layout_width="wrap_content"
+            android:layout_height="37pt"
+            android:layout_marginTop="69pt"
+            android:layout_toEndOf="@+id/tv_stu_migrate_number_string"
+            android:text="3"
+            android:textColor="#343434"
+            android:textSize="26pt"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="37pt"
+            android:layout_marginTop="69pt"
+            android:layout_toEndOf="@+id/tv_stu_migrate_number"
+            android:text="次迁移"
+            android:textColor="#343434"
+            android:textSize="26pt"
+            android:gravity="center_vertical"/>
+        <ImageView
+            android:layout_width="18pt"
+            android:layout_height="26pt"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/go"/>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -60,6 +60,7 @@
         android:textColor="#747070"
         android:textSize="26pt"/>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_track_search_result"
         android:layout_width="match_parent"

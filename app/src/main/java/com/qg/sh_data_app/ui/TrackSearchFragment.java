@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.core.bean.SearchOneStuInfo;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -39,6 +40,8 @@ public class TrackSearchFragment extends BaseFragment {
     private FragmentTrackSearchBinding fragmentTrackSearchBinding = null;
     private String startTime = null;
     private String endTime = null;
+    private MigrationStuAdapter adapter;
+    ArrayList<TwoOrMoreData.DataBean> dataBeanList= new ArrayList<>();
 
     @Nullable
     @Override
@@ -66,8 +69,9 @@ public class TrackSearchFragment extends BaseFragment {
 
     @Override
     public void initViews() {
+        initList();
+        //返回上一级搜索结果界面
         fragmentTrackSearchBinding.tvTrackBack.setOnClickListener(view -> {
-            //返回上一级搜索结果界面
             pop();
         });
         //监听输入的搜索内容
@@ -102,6 +106,21 @@ public class TrackSearchFragment extends BaseFragment {
             }
             return false;
         });
+        //item点击事件
+        adapter.setOnItemClickListener(new AdapterItemClick() {
+            @Override
+            public void onClick(int position) {
+                //传递数据并跳转至地图页
+            }
+        });
+    }
+
+    //初始化列表
+    private void initList(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        fragmentTrackSearchBinding.rcvTrackSearchResult.setLayoutManager(layoutManager);
+        adapter = new MigrationStuAdapter(dataBeanList);
+        fragmentTrackSearchBinding.rcvTrackSearchResult.setAdapter(adapter);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -131,7 +150,7 @@ public class TrackSearchFragment extends BaseFragment {
                     @Override
                     public void onNext(TwoOrMoreData twoOrMoreData) {
                         if(twoOrMoreData.getCode().equals("1")&&twoOrMoreData.getData()!=null){
-                            initList(twoOrMoreData.getData());
+                            showList(twoOrMoreData.getData());
                         }
                     }
 
@@ -147,8 +166,11 @@ public class TrackSearchFragment extends BaseFragment {
                 });
     }
 
-    //初始化列表
-    private void initList(List<TwoOrMoreData.DataBean> dataBeanList){
-
+    //展示列表
+    private void showList(List<TwoOrMoreData.DataBean> list) {
+        dataBeanList.clear();
+        dataBeanList.addAll(list);
+        fragmentTrackSearchBinding.rcvTrackSearchResult.setAdapter(adapter);
     }
+
 }
