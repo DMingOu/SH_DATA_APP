@@ -10,4 +10,8 @@ public class Constants {
     public static final String USER_AUTHORIZATION = "user_authorization";
 
     public static final String SHOW_HEAT_MAP = "show_heat_map";
+
+    public static final String SHOW_MIGRATE_TRACK = "show_migrate_track";
+
+
 }

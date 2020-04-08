@@ -21,6 +21,7 @@ import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.core.bean.HeatMapData
 import com.qg.sh_data_app.core.bean.HeatMapDots
+import com.qg.sh_data_app.core.bean.SingleStudentMigrateData
 import com.qg.sh_data_app.core.net.RetrofitManager
 import com.qg.sh_data_app.databinding.FragmentMapBinding
 import io.reactivex.Observable
@@ -114,9 +115,23 @@ class MapFragment : BaseFragment() {
         //粘性注册，收到展示热力图事件
         LiveEventBus
                 .get(Constants.SHOW_HEAT_MAP, HeatMapData::class.java)
-                .observeSticky(this, androidx.lifecycle.Observer<HeatMapData> {
+                .observeSticky(this, Observer<HeatMapData> {
                      showHeatMapData(it.data)
                 })
+        //粘性注册，收到特定学生的事件
+        LiveEventBus
+                .get(Constants.SHOW_MIGRATE_TRACK , SingleStudentMigrateData::class.java)
+                .observeSticky(this , Observer<SingleStudentMigrateData>{
+                     showSingleStudentMigrateTrack(it)
+                })
+    }
+
+
+
+    private fun showSingleStudentMigrateTrack(data : SingleStudentMigrateData){
+
+
+
     }
 
     private fun showHeatMapData( dots : List<HeatMapDots>? ){
@@ -127,9 +142,12 @@ class MapFragment : BaseFragment() {
                 heatDotList.add(weightedLatLng)
             }
             //设置渐变颜色值
-            val DEFAULT_GRADIENT_COLORS = intArrayOf(Color.rgb(102, 225, 0), Color.rgb(255, 0, 0))
+            val DEFAULT_GRADIENT_COLORS = intArrayOf(ColorUtils.string2Int("#5FFF53") ,ColorUtils.string2Int("#FFF600")
+                    ,ColorUtils.string2Int("#FF5D3B")
+                    , ColorUtils.string2Int("#FE461F")
+                    )
             //设置渐变颜色起始值
-            val DEFAULT_GRADIENT_START_POINTS = floatArrayOf(0.2f, 1f)
+            val DEFAULT_GRADIENT_START_POINTS = floatArrayOf(0.2f,0.4f,0.6f, 0.9f)
             //构造颜色渐变对象
             val gradient = Gradient(DEFAULT_GRADIENT_COLORS, DEFAULT_GRADIENT_START_POINTS)
             //构建具体的自定义热力图
@@ -150,8 +168,9 @@ class MapFragment : BaseFragment() {
                         .build()
         val mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
         binding.mapView.map.animateMapStatus(mapStatusUpdate)
-        Logger.d("Success Show HeatMap")
     }
+
+
 
 
 

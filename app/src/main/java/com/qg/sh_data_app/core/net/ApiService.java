@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -32,7 +33,7 @@ public interface ApiService {
      * @param timeString 表示日期的字符串
      * @return 热力图数据
      */
-    @POST("api/student/heatMap")
+    @GET("api/student/heatMap")
     Observable<HeatMapData> getHeatMapData(@Query("time") String timeString);
 
 
