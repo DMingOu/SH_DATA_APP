@@ -17,10 +17,27 @@
             android:src="@mipmap/back"
             />
         <TextView
+            android:id="@+id/tv_two_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/tv_from_to"
+            android:text="2020.04.04"
+            android:textColor="#ffffff"
+            android:textSize="36pt"/>
+        <TextView
+            android:id="@+id/tv_from_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="2020.04.04 - 2020.04.05"
+            android:text=" - "
+            android:textColor="#ffffff"
+            android:textSize="36pt"/>
+        <TextView
+            android:id="@+id/tv_two_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_from_to"
+            android:text="2020.04.05"
             android:textColor="#ffffff"
             android:textSize="36pt"/>
     </RelativeLayout>

@@ -20,6 +20,10 @@ import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentTrackSearchBinding;
 import com.qg.sh_data_app.util.GsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -33,11 +37,14 @@ public class TrackSearchFragment extends BaseFragment {
 
     private static final String TAG = "TrackSearchFragment";
     private FragmentTrackSearchBinding fragmentTrackSearchBinding = null;
+    private String startTime = null;
+    private String endTime = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentTrackSearchBinding = FragmentTrackSearchBinding.inflate(inflater, container,false);
+        EventBus.getDefault().register(this);
         return fragmentTrackSearchBinding.getRoot();
     }
 
@@ -49,6 +56,7 @@ public class TrackSearchFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -73,6 +81,7 @@ public class TrackSearchFragment extends BaseFragment {
 //                //隐藏列表，显示加载条
 //                fragmentTrackSearchBinding.tvLoading.setVisibility(View.VISIBLE);
 //                fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.GONE);
+                search();
             }
 
             @Override
@@ -80,6 +89,7 @@ public class TrackSearchFragment extends BaseFragment {
 //                //隐藏加载条，显示列表
 //                fragmentTrackSearchBinding.tvLoading.setVisibility(View.GONE);
 //                fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.VISIBLE);
+                search();
             }
         });
         //软键盘回车监听
@@ -87,15 +97,21 @@ public class TrackSearchFragment extends BaseFragment {
             if (i == KeyEvent.KEYCODE_ENTER&& keyEvent.getAction() == KeyEvent.ACTION_UP){
                 Log.e(TAG, "onKey: 按下回车键");
                 //进行搜索
-
+                search();
                 return true;
             }
             return false;
         });
     }
 
-    //根据上一个fragment传来的时间进行搜索
-    public void search(String startTime, String endTime){
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    private void getData(SearchOneStuInfo info){
+        startTime = info.getStartTime();
+        endTime=info.getEndTime();
+    }
+
+    //模糊搜索
+    private void search(){
         SearchOneStuInfo info = new SearchOneStuInfo();
         info.setStartTime(startTime);
         info.setEndTime(endTime);

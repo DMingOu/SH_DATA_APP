@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
+import com.qg.sh_data_app.core.bean.SearchAllStuInfo;
 import com.qg.sh_data_app.databinding.FragmentMigrationSearchBinding;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MigrationSearchFragment extends BaseFragment {
 
@@ -78,10 +82,13 @@ public class MigrationSearchFragment extends BaseFragment {
                 //获取选择的时间
                 String startTime = fragmentMigrationSearchBinding.tvStartTime.getText().toString();
                 String endTime = fragmentMigrationSearchBinding.tvEndTime.getText().toString();
+                SearchAllStuInfo allStuInfo = new SearchAllStuInfo();
+                allStuInfo.setStartTime(startTime);
+                allStuInfo.setEndTime(endTime);
+                //传递数据
+                EventBus.getDefault().post(allStuInfo);
                 //跳转迁移轨迹页面
                 start(new TwoOrMoreFragment());
-                //传递数据
-
             }
         });
     }
