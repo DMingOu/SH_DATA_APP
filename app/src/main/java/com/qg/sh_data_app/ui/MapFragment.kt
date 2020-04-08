@@ -7,24 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ZoomControls
+import androidx.annotation.Nullable
+import androidx.lifecycle.Observer
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.leaf.library.StatusBarUtil
 import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
+import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.core.bean.HeatMapData
 import com.qg.sh_data_app.core.bean.HeatMapDots
 import com.qg.sh_data_app.core.net.RetrofitManager
 import com.qg.sh_data_app.databinding.FragmentMapBinding
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-
 
 /**
  * @description: 地图页面Fragment
@@ -43,11 +46,15 @@ class MapFragment : BaseFragment() {
         return binding.root
     }
 
-     override fun onResume() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        registerLiveEventObserve()
+    }
+
+    override fun onResume() {
          super.onResume()
          //执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
          binding.mapView.onResume()
-         getHeatMapData()
     }
 
      override fun onPause() {
@@ -73,7 +80,7 @@ class MapFragment : BaseFragment() {
 
     override fun configStatusBar() {
         StatusBarUtil.setDarkMode(_mActivity)
-        StatusBarUtil.setColor(_mActivity, resources.getColor(R.color.white))
+        StatusBarUtil.setColor(_mActivity, ColorUtils.getColor(R.color.white))
     }
 
     override fun initViews() {
@@ -100,36 +107,20 @@ class MapFragment : BaseFragment() {
 //        binding.mapView.map.showMapPoi(false)
     }
 
-    private fun getHeatMapData(){
-        var heatMapData : HeatMapData ?= null
-        //测试：获取热力图数据
-          RetrofitManager.getInstance()
-                .apiService
-                .getHeatMapData("2020-04-04")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : Observer<HeatMapData>{
-                    override fun onSubscribe(d: Disposable) {
-                    }
-
-                    override fun onNext(data: HeatMapData) {
-                        heatMapData = data
-                    }
-
-                    override fun onError(e: Throwable) {
-                        ToastUtils.showShort("网络请求错误 " + e.message)
-                        Logger.e(e.message ?:"")
-                        e.printStackTrace()
-                    }
-
-                    override fun onComplete() {
-                        showHeatMapData(heatMapData?.data)
-                    }
+    /**
+     * 注册 LiveEventBus 事件
+     */
+    private fun registerLiveEventObserve(){
+        //粘性注册，收到展示热力图事件
+        LiveEventBus
+                .get(Constants.SHOW_HEAT_MAP, HeatMapData::class.java)
+                .observeSticky(this, androidx.lifecycle.Observer<HeatMapData> {
+                     showHeatMapData(it.data)
                 })
     }
 
     private fun showHeatMapData( dots : List<HeatMapDots>? ){
-        val observable: Observable<HeatMap> = Observable.create(ObservableOnSubscribe<HeatMap > {
+        mDisposable = Observable.create(ObservableOnSubscribe<HeatMap > {
             val heatDotList : MutableList<WeightedLatLng> = mutableListOf()
             dots?.forEach {
                 val weightedLatLng = WeightedLatLng(LatLng(it.lat ,it.lng), it.count.toDouble())
@@ -141,6 +132,7 @@ class MapFragment : BaseFragment() {
             val DEFAULT_GRADIENT_START_POINTS = floatArrayOf(0.2f, 1f)
             //构造颜色渐变对象
             val gradient = Gradient(DEFAULT_GRADIENT_COLORS, DEFAULT_GRADIENT_START_POINTS)
+            //构建具体的自定义热力图
             val mCustomHeatMap = HeatMap.Builder()
                     .weightedData(heatDotList)
                     .gradient(gradient)
@@ -148,17 +140,20 @@ class MapFragment : BaseFragment() {
             it.onNext(mCustomHeatMap)
         }).subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
+          .subscribe {
+              binding.mapView.map.addHeatMap(it)
+          }
 
-        val disposable: Disposable = observable.subscribe {
-            binding.mapView.map.addHeatMap(it)
-        }
         val mMapStatus = MapStatus.Builder()
                         .target(LatLng( 25.0 , 113.0))
-                        .zoom(7.7F) //8级刚好可以显示广东省
+                        .zoom(7.7F) //7.7级刚好可以显示广东省
                         .build()
         val mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
         binding.mapView.map.animateMapStatus(mapStatusUpdate)
-
+        Logger.d("Success Show HeatMap")
     }
+
+
+
 
 }

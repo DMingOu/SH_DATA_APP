@@ -3,8 +3,11 @@ package com.qg.sh_data_app.ui.Area_Situation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.baidu.mapapi.map.HeatMap
 import com.blankj.utilcode.util.ToastUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.orhanobut.logger.Logger
+import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.core.bean.HeatMapData
 import com.qg.sh_data_app.core.bean.HeatMapDots
 import com.qg.sh_data_app.core.net.RetrofitManager
@@ -21,9 +24,9 @@ import io.reactivex.schedulers.Schedulers
 class AreaSituationViewModel :ViewModel() {
 
     //viewModel内部更新的MutableLiveData
-    private val _areaSituationList  =  MutableLiveData<List<HeatMapDots>>()
+    private val _areaData  =  MutableLiveData<HeatMapData>()
     //供外部调用的LiveData
-    val areaSituationList : LiveData<List<HeatMapDots>> = _areaSituationList
+    val areaData : LiveData<HeatMapData> = _areaData
 
 
     companion object{
@@ -46,7 +49,7 @@ class AreaSituationViewModel :ViewModel() {
                     }
 
                     override fun onNext(heatMapData: HeatMapData) {
-                        _areaSituationList.value = heatMapData.data
+                        _areaData.value = heatMapData
                     }
 
                     override fun onError(e: Throwable) {
@@ -59,5 +62,11 @@ class AreaSituationViewModel :ViewModel() {
                     }
                 })
     }
+
+     fun postShowHeatMapEvent(){
+        LiveEventBus
+                .get(Constants.SHOW_HEAT_MAP)
+                .post(_areaData.value);
+     }
 
 }

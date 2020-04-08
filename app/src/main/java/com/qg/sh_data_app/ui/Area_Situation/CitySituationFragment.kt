@@ -8,11 +8,14 @@ import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.ClickUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.leaf.library.StatusBarUtil
 import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.base.BaseMVVMFragment
+import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.databinding.FragmentCitiesSituationBinding
 import com.qg.sh_data_app.ui.MapFragment
 
@@ -42,7 +45,7 @@ class CitySituationFragment : BaseMVVMFragment() {
     }
 
     override fun initViews() {
-        //标题栏左方返回按钮的点击事件
+        //标题栏左方返回按钮的点击事件，弹出当前Fragment
         binding.ivBackCitySituation.setOnClickListener {
             pop()
         }
@@ -60,22 +63,25 @@ class CitySituationFragment : BaseMVVMFragment() {
         //动态添加RecyclerView 的头布局 --按钮点击查看热力图
         val btnHeaderView : View = layoutInflater.inflate(R.layout.item_header_rv_area_situation, binding.rvAreaSituation, false)
         rvAdapter?.addHeaderView(btnHeaderView)
-        //点击查看热力图
-//        btnHeaderView.setOnClickListener{
-//            start( MapFragment())
-//        }
-        rvAdapter?.headerLayout?.setOnClickListener {
-            start( MapFragment())
-        }
-
+        //点击查看热力图 & 防止多次点击启动多个Fragment
+        rvAdapter?.headerLayout?.setOnClickListener(object : ClickUtils.OnMultiClickListener(2) {
+            override fun onTriggerClick(v: View) {
+            }
+            override fun onBeforeTriggerClick(v: View, count: Int) {
+                if(count == 1 ){
+                    viewModel?.postShowHeatMapEvent()
+                    start( MapFragment())
+                }
+            }
+        })
     }
+
 
 
     override fun initViewModelObserve() {
         viewModel?.apply {
-            areaSituationList.observe(this@CitySituationFragment , Observer {
-//                rvAdapter?.setDiffNewData(it.toMutableList())
-                rvAdapter?.setNewData(it.toMutableList())
+            areaData.observe(this@CitySituationFragment , Observer {
+                rvAdapter?.setNewData(it.data.toMutableList())
             })
         }
     }
