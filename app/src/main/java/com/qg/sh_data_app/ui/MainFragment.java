@@ -80,7 +80,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public boolean onBackPressedSupport() {
-        ToastUtils.showShort(TAG + "触发了返回键事件,退出APP" );
         //主页面返回键触发退出App
         return super.onBackPressedSupport();
     }
