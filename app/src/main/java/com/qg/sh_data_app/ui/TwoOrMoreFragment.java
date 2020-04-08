@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.GsonUtils;
 import com.bumptech.glide.util.LogTime;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -36,6 +38,8 @@ public class TwoOrMoreFragment extends BaseFragment {
 
     private static final String TAG = "TwoOrMoreFragment";
     private FragmentTwoOrMoreBinding fragmentTwoOrMoreBinding = null;
+    private MigrationStuAdapter adapter;
+    ArrayList<TwoOrMoreData.DataBean> dataBeanList= new ArrayList<>();
 
     @Nullable
     @Override
@@ -64,6 +68,7 @@ public class TwoOrMoreFragment extends BaseFragment {
 
     @Override
     public void initViews() {
+        initList();
         fragmentTwoOrMoreBinding.imvBackTwo.setOnClickListener(view -> {
             //返回迁移搜索界面
             pop();
@@ -78,6 +83,20 @@ public class TwoOrMoreFragment extends BaseFragment {
             //跳转至轨迹搜索界面
             start(new TrackSearchFragment());
         });
+        adapter.setOnItemClickListener(new AdapterItemClick() {
+            @Override
+            public void onClick(int position) {
+                //传递数据并跳转至地图页
+            }
+        });
+    }
+
+    //初始化列表
+    private void initList(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        fragmentTwoOrMoreBinding.rcvTwoDayResult.setLayoutManager(layoutManager);
+        adapter = new MigrationStuAdapter(dataBeanList);
+        fragmentTwoOrMoreBinding.rcvTwoDayResult.setAdapter(adapter);
     }
 
     //根据上一个fragment传来的时间进行搜索
@@ -99,7 +118,7 @@ public class TwoOrMoreFragment extends BaseFragment {
                     @Override
                     public void onNext(TwoOrMoreData twoOrMoreData) {
                         if(twoOrMoreData.getCode().equals("1")&&twoOrMoreData.getData()!=null){
-                            initList(twoOrMoreData.getData());
+                            showList(twoOrMoreData.getData());
                         }
 
                     }
@@ -116,14 +135,17 @@ public class TwoOrMoreFragment extends BaseFragment {
                 });
     }
 
-    //初始化列表
-    private void initList(List<TwoOrMoreData.DataBean> dataBeanList){
-
-    }
 
     //初始化标题
     private void initTitle(String start, String end){
         fragmentTwoOrMoreBinding.tvTwoStartTime.setText(start);
         fragmentTwoOrMoreBinding.tvTwoEndTime.setText(end);
+    }
+
+    //展示列表
+    private void showList(List<TwoOrMoreData.DataBean> list) {
+        dataBeanList.clear();
+        dataBeanList.addAll(list);
+        fragmentTwoOrMoreBinding.rcvTwoDayResult.setAdapter(adapter);
     }
 }
