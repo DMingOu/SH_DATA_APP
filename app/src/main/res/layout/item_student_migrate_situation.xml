@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                android:layout_width = "match_parent"
+                android:layout_height = "90pt"
+                xmlns:tools = "http://schemas.android.com/tools">
+
+      <TextView
+      android:id = "@+id/tv_migrate_time"
+      android:layout_width = "wrap_content"
+      android:layout_height = "wrap_content"
+      tools:text = "广东省 广州市"
+      android:textSize="26pt"
+      android:layout_centerVertical="true"
+      android:layout_marginStart="30pt"
+      />
+
+      <TextView
+      android:id = "@+id/tv_migrate_locations"
+      android:layout_width = "wrap_content"
+      android:layout_height = "wrap_content"
+      tools:text = "3000"
+      android:textSize="26pt"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="20pt"
+      android:layout_alignParentEnd="true"
+      />
+
+      <View
+      android:layout_width = "wrap_content"
+      android:layout_height = "3pt"
+      android:background="@color/bg_divide_line"
+      android:layout_alignParentBottom="true"
+      />
+
+
+
+</RelativeLayout>

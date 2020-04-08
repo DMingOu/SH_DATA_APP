@@ -31,6 +31,7 @@ public class ContainerActivity extends BaseActivity {
             //存在登录信息，存入主页面
             loadRootFragment(R.id.fl_fragments_container, new MainFragment());
         }
+
     }
 
     /**

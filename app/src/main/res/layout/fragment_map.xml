@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-          xmlns:android = "http://schemas.android.com/apk/res/android"
-          android:layout_width = "match_parent"
-          android:layout_height = "match_parent">
+<FrameLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              xmlns:app = "http://schemas.android.com/apk/res-auto"
+              android:orientation = "vertical"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent">
 
 
           <com.baidu.mapapi.map.MapView
           android:id = "@+id/mapView"
           android:layout_width = "match_parent"
-          android:layout_height = "match_parent"
+          android:layout_height = "wrap_content"
           />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+      <com.qg.sh_data_app.widget.BottomDrawerLayout
+        android:id="@+id/dl_student_situation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        app:defaultHeight="90pt"
+        app:realHeight="640pt">
+
+        <TextView
+        android:id="@+id/tv_student_info"
+        android:layout_width="match_parent"
+        android:layout_height="80pt"
+        android:gravity="center"
+        android:background="#fff"
+        android:textSize = "36pt"
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_student_migrate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    </com.qg.sh_data_app.widget.BottomDrawerLayout>
+
+
+
+</FrameLayout>
