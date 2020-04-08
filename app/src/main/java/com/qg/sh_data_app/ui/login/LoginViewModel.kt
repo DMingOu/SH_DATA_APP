@@ -32,6 +32,16 @@ class LoginViewModel : ViewModel() {
 
 
     fun loginRequest( number : String , password : String){
+        if("".equals(number) && !"".equals(password)){
+            ToastUtils.showShort("账号不可以为空")
+            return
+        } else if("".equals(password) && !"".equals(number)){
+            ToastUtils.showShort("密码不可以为空")
+            return
+        } else if("".equals(password) && "".equals(number)){
+            ToastUtils.showShort("请填写账号密码")
+            return
+        }
         val l = LoginRequest(number , password)
         val bodyString = GsonUtils.toJson(l)
         Logger.d(bodyString)
