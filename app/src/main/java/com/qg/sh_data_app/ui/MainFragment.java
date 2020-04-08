@@ -10,10 +10,10 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.leaf.library.StatusBarUtil;
-import com.orhanobut.logger.Logger;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
+import com.qg.sh_data_app.ui.Area_Situation.CitySituationFragment;
 
 
 /**
@@ -73,13 +73,14 @@ public class MainFragment extends BaseFragment {
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
             //测试跳转设置为跳转为地图页
-            start(new MapFragment());
+            start(new CitySituationFragment());
         });
     }
 
+
+
     @Override
     public boolean onBackPressedSupport() {
-        ToastUtils.showShort(TAG + "触发了返回键事件,退出APP" );
         //主页面返回键触发退出App
         return super.onBackPressedSupport();
     }

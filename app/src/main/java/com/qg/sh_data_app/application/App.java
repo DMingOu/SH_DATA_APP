@@ -7,9 +7,12 @@ import android.util.Log;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.net.ContentHandler;
 
@@ -58,10 +61,11 @@ public class App extends Application {
                 // 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
                 .handleException(new ExceptionHandler() {
                     @Override
-                    public void onException(Exception e) {
+                    public void onException(@NotNull Exception e) {
                         // 建议在该回调处上传至我们的Crash监测服务器
                         // 以Bugtags为例子: 手动把捕获到的 Exception 传到 Bugtags 后台。
                         // Bugtags.sendException(e);
+                        ToastUtils.showShort(e.getMessage());
                     }
                 })
                 .install();
