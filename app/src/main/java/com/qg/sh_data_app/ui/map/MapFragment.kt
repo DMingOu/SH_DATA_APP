@@ -1,4 +1,4 @@
-package com.qg.sh_data_app.ui
+package com.qg.sh_data_app.ui.map
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +39,7 @@ class MapFragment : BaseFragment() {
 
     private  var mDisposable : Disposable ?= null
 
-    private var rvAdapter : StudentMigrateAdapter ?= null
+    private var rvAdapter : StudentMigrateAdapter?= null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

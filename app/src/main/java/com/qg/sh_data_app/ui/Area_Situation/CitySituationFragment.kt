@@ -4,20 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ClickUtils
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.leaf.library.StatusBarUtil
-import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.R
-import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.base.BaseMVVMFragment
-import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.databinding.FragmentCitiesSituationBinding
-import com.qg.sh_data_app.ui.MapFragment
+import com.qg.sh_data_app.ui.map.MapFragment
 
 /**
  * @description: 城市情况页面Fragment
@@ -70,7 +65,7 @@ class CitySituationFragment : BaseMVVMFragment() {
             override fun onBeforeTriggerClick(v: View, count: Int) {
                 if(count == 1 ){
                     viewModel?.postShowHeatMapEvent()
-                    start( MapFragment())
+                    start(MapFragment())
                 }
             }
         })
