@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.core.bean.TimeIntervalRequest
 import com.qg.sh_data_app.core.bean.UnFinishSituation
 import com.qg.sh_data_app.core.bean.UnFinishStudentsData
@@ -34,9 +35,6 @@ class UnFinishedSituationViewModel : ViewModel(){
         const val tag = "UnFinishedSituationViewModel"
     }
 
-    init {
-        getUnFinishedSituationDataRequest("2020-04-01")
-    }
 
 
     fun getUnFinishedSituationDataRequest( startDate : String ?){

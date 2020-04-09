@@ -18,6 +18,8 @@ data class UnFinishSituation(
     val message: String
 )
 
+/* data class 继承 BaseExpandNode 导致 树状列表错乱
+
 data class UnFinishStudentsData(
     @SerializedName("students")
     val students: List<UnFinishStudent>,
@@ -37,4 +39,6 @@ data class UnFinishStudent(
 ) : BaseExpandNode(){
     override val childNode: MutableList<BaseNode>?
         get() = null
-}
+
+
+}*/

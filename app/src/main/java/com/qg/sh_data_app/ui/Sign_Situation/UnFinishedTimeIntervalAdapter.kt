@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.R
 import com.qg.sh_data_app.core.bean.UnFinishStudentsData
 
@@ -47,16 +48,17 @@ class UnFinishedTimeIntervalAdapter:BaseNodeProvider() {
         val imageView = helper.getView<ImageView>(R.id.iv_guide_unfinished)
         if (entity?.isExpanded == true) {
             //已展开状态
-            if (isAnimate)
+            if (isAnimate){
                 ViewCompat.animate(imageView).setDuration(200)
                         .setInterpolator(DecelerateInterpolator())
                         .rotation(180f)
                         .start()
-            else {
+            } else {
                 imageView.rotation = 0f
             }
         } else {
             //未展开状态
+            imageView.setImageResource(R.mipmap.icon_guide_arrow)
             imageView.rotation = 0f
         }
     }
@@ -67,12 +69,12 @@ class UnFinishedTimeIntervalAdapter:BaseNodeProvider() {
             data: BaseNode,
             position: Int
     ) {
-        // 这里使用payload进行增量刷新（避免整个item刷新导致的闪烁，不自然）
-        getAdapter()!!.expandOrCollapse(
+        getAdapter()?.expandOrCollapse(
                 position,
                 true,
                 true,
                 UnFinishedSituationAdapter.EXPAND_COLLAPSE_PAYLOAD
         )
+
     }
 }
