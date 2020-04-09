@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.blankj.utilcode.util.ColorUtils
+import com.blankj.utilcode.util.GsonUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.leaf.library.StatusBarUtil
 import com.qg.sh_data_app.R
@@ -100,7 +101,7 @@ class MapFragment : BaseFragment() {
             }
         }
 
-/*        val demo : SingleStudentMigrateData = GsonUtils.fromJson("{\n" +
+        val demo : SingleStudentMigrateData = GsonUtils.fromJson("{\n" +
                 "            \"studentName\": \"李泽创\",\n" +
                 "            \"studentId\": \"12345678903\",\n" +
                 "            \"migrate\": [\n" +
@@ -205,7 +206,7 @@ class MapFragment : BaseFragment() {
                 "            ]\n" +
                 "        }"  , SingleStudentMigrateData::class.java)
 
-        showSingleStudentMigrateTrack(demo)*/
+        showSingleStudentMigrateTrack(demo)
     }
 
     /**
@@ -282,7 +283,7 @@ class MapFragment : BaseFragment() {
 
         //设置折线的属性
         val mOverlayOptions =  PolylineOptions()
-        .width(18)
+        .width(13)
         .dottedLine(true)
         .points(points)
                 .textureIndex(indexList)//设置纹理列表
@@ -291,13 +292,17 @@ class MapFragment : BaseFragment() {
         //在地图上绘制折线
         val mPolyline = binding.mapView.map.addOverlay(mOverlayOptions);
 
-
-        val info = "学生:  "+ data.studentName+"  "+data.studentId
+        //设置抽屉布局的标题
+        val info = "学生:  "+ data.studentName+"   学号: "+data.studentId
         binding.tvStudentInfo.text = info
         rvAdapter?.setNewData(data = list.toMutableList())
 
     }
 
+    /**
+     * 显示当前日期的热力图数据
+     * @param dots List<HeatMapDots>?
+     */
     private fun showHeatMapData( dots : List<HeatMapDots>? ){
         mDisposable = Observable.create(ObservableOnSubscribe<HeatMap > {
             val heatDotList : MutableList<WeightedLatLng> = mutableListOf()
@@ -307,9 +312,7 @@ class MapFragment : BaseFragment() {
             }
             //设置渐变颜色值
             val DEFAULT_GRADIENT_COLORS = intArrayOf(ColorUtils.string2Int("#5FFF53") ,ColorUtils.string2Int("#FFF600")
-                    ,ColorUtils.string2Int("#FF5D3B")
-                    , ColorUtils.string2Int("#FE461F")
-                    )
+                    ,ColorUtils.string2Int("#FF5D3B"), ColorUtils.string2Int("#FE461F"))
             //设置渐变颜色起始值
             val DEFAULT_GRADIENT_START_POINTS = floatArrayOf(0.2f,0.4f,0.6f, 0.9f)
             //构造颜色渐变对象
