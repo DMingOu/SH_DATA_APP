@@ -79,7 +79,6 @@ class UnFinishSituationFragment : BaseMVVMFragment(){
         binding.rvUnfinishedSituation.adapter = rvAdapter
         rvAdapter?.animationEnable = true
         rvAdapter?.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
-
     }
 
      override fun onCreateFragmentAnimator(): FragmentAnimator? {
