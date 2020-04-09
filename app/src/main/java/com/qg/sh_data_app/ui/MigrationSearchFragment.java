@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.core.bean.SearchAllStuInfo;
 import com.qg.sh_data_app.databinding.FragmentMigrationSearchBinding;
+import com.qg.sh_data_app.ui.twoOrMore.TwoOrMoreFragment;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -5,11 +5,13 @@ package com.qg.sh_data_app.core.net;
 import com.qg.sh_data_app.core.bean.HeatMapData;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.core.bean.LoginCallback;
+import com.qg.sh_data_app.core.bean.UploadResult;
+
+import java.io.File;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -53,5 +55,12 @@ public interface ApiService {
     @POST("api/user/login")
     Observable<LoginCallback> postLoginRequest(@Body RequestBody loginRequestBody);
 
+    /**
+     * 上传文件
+     * @param file
+     * @return
+     */
+    @POST("api/student/import")
+    Observable<UploadResult> upload(@Query("file")File file);
 
 }

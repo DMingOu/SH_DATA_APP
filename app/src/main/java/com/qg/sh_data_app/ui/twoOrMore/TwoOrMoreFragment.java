@@ -1,10 +1,7 @@
-package com.qg.sh_data_app.ui;
+package com.qg.sh_data_app.ui.twoOrMore;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.qg.sh_data_app.base.BaseFragment;
+import com.qg.sh_data_app.core.bean.SearchAllStuInfo;
 import com.qg.sh_data_app.core.bean.SearchOneStuInfo;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.core.net.RetrofitManager;
-import com.qg.sh_data_app.databinding.FragmentTrackSearchBinding;
+import com.qg.sh_data_app.databinding.FragmentTwoOrMoreBinding;
 import com.qg.sh_data_app.util.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,21 +32,19 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class TrackSearchFragment extends BaseFragment {
+public class TwoOrMoreFragment extends BaseFragment {
 
-    private static final String TAG = "TrackSearchFragment";
-    private FragmentTrackSearchBinding fragmentTrackSearchBinding = null;
-    private String startTime = null;
-    private String endTime = null;
+    private static final String TAG = "TwoOrMoreFragment";
+    private FragmentTwoOrMoreBinding fragmentTwoOrMoreBinding = null;
     private MigrationStuAdapter adapter;
     ArrayList<TwoOrMoreData.DataBean> dataBeanList= new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentTrackSearchBinding = FragmentTrackSearchBinding.inflate(inflater, container,false);
+        fragmentTwoOrMoreBinding = FragmentTwoOrMoreBinding.inflate(inflater, container,false);
         EventBus.getDefault().register(this);
-        return fragmentTrackSearchBinding.getRoot();
+        return fragmentTwoOrMoreBinding.getRoot();
     }
 
     @Override
@@ -62,6 +58,7 @@ public class TrackSearchFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+
     @Override
     public void configStatusBar() {
 
@@ -70,43 +67,20 @@ public class TrackSearchFragment extends BaseFragment {
     @Override
     public void initViews() {
         initList();
-        //返回上一级搜索结果界面
-        fragmentTrackSearchBinding.tvTrackBack.setOnClickListener(view -> {
+        fragmentTwoOrMoreBinding.imvBackTwo.setOnClickListener(view -> {
+            //返回迁移搜索界面
             pop();
         });
-        //监听输入的搜索内容
-        fragmentTrackSearchBinding.edtSearchKeyword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                //隐藏列表，显示加载条
-//                fragmentTrackSearchBinding.tvLoading.setVisibility(View.VISIBLE);
-//                fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.GONE);
-                search();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-//                //隐藏加载条，显示列表
-//                fragmentTrackSearchBinding.tvLoading.setVisibility(View.GONE);
-//                fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.VISIBLE);
-                search();
-            }
+        fragmentTwoOrMoreBinding.btnGoToTrackSearch.setOnClickListener(view -> {
+            //传递时间数据
+            SearchOneStuInfo oneStuInfo = new SearchOneStuInfo();
+            oneStuInfo.setStartTime(fragmentTwoOrMoreBinding.tvTwoStartTime.getText().toString());
+            oneStuInfo.setEndTime(fragmentTwoOrMoreBinding.tvTwoEndTime.getText().toString());
+            EventBus.getDefault()
+                    .post(oneStuInfo);
+            //跳转至轨迹搜索界面
+            start(new TrackSearchFragment());
         });
-        //软键盘回车监听
-        fragmentTrackSearchBinding.edtSearchKeyword.setOnKeyListener((view, i, keyEvent) -> {
-            if (i == KeyEvent.KEYCODE_ENTER&& keyEvent.getAction() == KeyEvent.ACTION_UP){
-                Log.e(TAG, "onKey: 按下回车键");
-                //进行搜索
-                search();
-                return true;
-            }
-            return false;
-        });
-        //item点击事件
         adapter.setOnItemClickListener(new AdapterItemClick() {
             @Override
             public void onClick(int position) {
@@ -118,23 +92,15 @@ public class TrackSearchFragment extends BaseFragment {
     //初始化列表
     private void initList(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        fragmentTrackSearchBinding.rcvTrackSearchResult.setLayoutManager(layoutManager);
+        fragmentTwoOrMoreBinding.rcvTwoDayResult.setLayoutManager(layoutManager);
         adapter = new MigrationStuAdapter(dataBeanList);
-        fragmentTrackSearchBinding.rcvTrackSearchResult.setAdapter(adapter);
+        fragmentTwoOrMoreBinding.rcvTwoDayResult.setAdapter(adapter);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    private void getData(SearchOneStuInfo info){
-        startTime = info.getStartTime();
-        endTime=info.getEndTime();
-    }
-
-    //模糊搜索
-    private void search(){
-        SearchOneStuInfo info = new SearchOneStuInfo();
-        info.setStartTime(startTime);
-        info.setEndTime(endTime);
-        info.setKeyword(fragmentTrackSearchBinding.edtSearchKeyword.getText().toString());
+    //根据上一个fragment传来的时间进行搜索
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void search(SearchAllStuInfo info){
+        initTitle(info.getStartTime(),info.getEndTime());
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtil.GsonString(info));
         RetrofitManager.getInstance()
                 .getApiService()
@@ -152,6 +118,7 @@ public class TrackSearchFragment extends BaseFragment {
                         if(twoOrMoreData.getCode().equals("1")&&twoOrMoreData.getData()!=null){
                             showList(twoOrMoreData.getData());
                         }
+
                     }
 
                     @Override
@@ -166,11 +133,17 @@ public class TrackSearchFragment extends BaseFragment {
                 });
     }
 
+
+    //初始化标题
+    private void initTitle(String start, String end){
+        fragmentTwoOrMoreBinding.tvTwoStartTime.setText(start);
+        fragmentTwoOrMoreBinding.tvTwoEndTime.setText(end);
+    }
+
     //展示列表
     private void showList(List<TwoOrMoreData.DataBean> list) {
         dataBeanList.clear();
         dataBeanList.addAll(list);
-        fragmentTrackSearchBinding.rcvTrackSearchResult.setAdapter(adapter);
+        fragmentTwoOrMoreBinding.rcvTwoDayResult.setAdapter(adapter);
     }
-
 }

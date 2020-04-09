@@ -1,6 +1,5 @@
-package com.qg.sh_data_app.ui;
+package com.qg.sh_data_app.ui.twoOrMore;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
