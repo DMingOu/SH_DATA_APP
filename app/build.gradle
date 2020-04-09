@@ -109,4 +109,7 @@ dependencies {
 
     //底部Sheet
     implementation 'com.github.Vove7.BottomDialog:bottomdialog:2.1-x'
+    
+    //时间选择
+    implementation 'jsc.kit.wheel:wheel-view:0.5.4'
 }
