@@ -98,7 +98,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     //底部事件选择器
-    //implementation 'jsc.kit.wheel:wheel-view:_latestVersion'
+    implementation 'jsc.kit.wheel:wheel-view:0.5.4'
 
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
