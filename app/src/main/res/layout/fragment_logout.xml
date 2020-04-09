@@ -25,6 +25,7 @@
             />
 
             <TextView
+            android:id = "@+id/tv_userName_logout"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
             android:layout_toEndOf= "@id/iv_avatar_logout"

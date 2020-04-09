@@ -74,18 +74,25 @@ public class MainFragment extends BaseFragment {
 
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
-//            LogoutFragment fragment = new  LogoutFragment();
-            CitySituationFragment fragment = new CitySituationFragment();
+            LogoutFragment targetFragment = new  LogoutFragment();
+//            CitySituationFragment fragment = new CitySituationFragment();
+            Bundle bundle = new Bundle();
+            // 传递分割后的用户名
+            String[] strings = binding.tvWelcome.getText().toString().split(" ，");
+            String userName = strings[0] ;
+            bundle.putString("USERNAME", userName);
+            //为接收方Fragment设置数据
+            targetFragment.setArguments(bundle);
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 setExitTransition(new Fade());
-                fragment.setEnterTransition(new Fade());
-                fragment.setSharedElementEnterTransition(new Fade());
-                fragment.setSharedElementReturnTransition(new Fade());
+                targetFragment.setEnterTransition(new Fade());
+                targetFragment.setSharedElementEnterTransition(new Fade());
+                targetFragment.setSharedElementReturnTransition(new Fade());
                 extraTransaction()
                         .addSharedElement(binding.viewAvatarMain, StringUtils.getString(R.string.share_elements_iv_avatar))
-                        .start(fragment);
+                        .start(targetFragment);
             } else {
-                start(fragment);
+                start(targetFragment);
             }
         });
     }
