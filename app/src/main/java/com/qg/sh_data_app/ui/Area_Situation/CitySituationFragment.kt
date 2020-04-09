@@ -15,7 +15,7 @@ import com.qg.sh_data_app.databinding.FragmentCitiesSituationBinding
 import com.qg.sh_data_app.ui.map.MapFragment
 
 /**
- * @description: 城市情况页面Fragment
+ * @description: 城市打卡情况页面Fragment
  * @author: ODM
  * @date: 2020/4/7
  */
@@ -48,7 +48,6 @@ class CitySituationFragment : BaseMVVMFragment() {
         //初始化 RecyclerView 的适配器
         rvAdapter = AreaSituationAdapter(mutableListOf())
         binding.rvAreaSituation.layoutManager = LinearLayoutManager(activity)
-//        binding.rvAreaSituation.addOnScrollListener(onScrollListener)
 
         binding.rvAreaSituation.adapter = rvAdapter
         rvAdapter?.animationEnable = true
@@ -70,7 +69,6 @@ class CitySituationFragment : BaseMVVMFragment() {
             }
         })
     }
-
 
 
     override fun initViewModelObserve() {

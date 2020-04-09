@@ -11,13 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.leaf.library.StatusBarUtil;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
 import com.qg.sh_data_app.ui.Area_Situation.CitySituationFragment;
-import com.qg.sh_data_app.ui.login.LogoutFragment;
+import com.qg.sh_data_app.ui.Sign_Situation.UnFinishSituationFragment;
 
 
 /**
@@ -68,14 +67,17 @@ public class MainFragment extends BaseFragment {
 
         //迁移搜索的点击事件
         binding.btnMigrateSearchMain.setOnClickListener( v-> {
-            //
             start(new MigrationSearchFragment());
+        });
+
+        binding.btnSignSituationMain.setOnClickListener(v -> {
+            start(new UnFinishSituationFragment());
         });
 
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
-            LogoutFragment targetFragment = new  LogoutFragment();
-//            CitySituationFragment fragment = new CitySituationFragment();
+//            LogoutFragment targetFragment = new  LogoutFragment();
+            CitySituationFragment targetFragment = new CitySituationFragment();
             Bundle bundle = new Bundle();
             // 传递分割后的用户名
             String[] strings = binding.tvWelcome.getText().toString().split(" ，");

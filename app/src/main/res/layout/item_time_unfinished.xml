@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                android:layout_width = "match_parent"
+                android:layout_height = "80pt"
+                android:background="@color/white"
+                xmlns:tools = "http://schemas.android.com/tools">
+
+
+        <TextView
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/tv_time_unfinished"
+        tools:text = "2020-04-04"
+        android:textSize = "28pt"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="36pt"
+        android:layout_alignParentStart="true"
+        />
+
+        <ImageView
+        android:id = "@+id/iv_guide_unfinished"
+        android:layout_width = "21pt"
+        android:layout_height = "11pt"
+        android:src = "@mipmap/icon_guide_arrow"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="23pt"
+        android:layout_centerVertical="true"
+        android:contentDescription = "引导箭头，未展开时向下，展开后向上"
+        />
+
+        <TextView
+        android:id = "@+id/tv_count_unfinished"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        tools:text = "共100人"
+        android:textSize="24pt"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/iv_guide_unfinished"
+        android:layout_marginEnd="41pt"
+        />
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="5pt"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_divide_line" />
+
+
+</RelativeLayout>

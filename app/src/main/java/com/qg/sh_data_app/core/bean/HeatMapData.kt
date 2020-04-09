@@ -19,6 +19,8 @@ data class HeatMapData(
 data class HeatMapDots(
     @SerializedName("count")
     val count: Int,
+    @SerializedName("city")
+    val city: String,
     @SerializedName("lat")
     val lat: Double,
     @SerializedName("lng")

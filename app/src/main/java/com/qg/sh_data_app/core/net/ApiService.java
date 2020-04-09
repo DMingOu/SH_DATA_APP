@@ -5,6 +5,7 @@ package com.qg.sh_data_app.core.net;
 import com.qg.sh_data_app.core.bean.HeatMapData;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.core.bean.LoginCallback;
+import com.qg.sh_data_app.core.bean.UnFinishSituation;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -53,5 +54,12 @@ public interface ApiService {
     @POST("api/user/login")
     Observable<LoginCallback> postLoginRequest(@Body RequestBody loginRequestBody);
 
-
+    /**
+     * 根据请求Post调用获取未打卡情况数据
+     * @param timeIntervalRequestBody 请求未打卡情况Body
+     * @return 未打卡情况回调
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("api/student/clock")
+    Observable<UnFinishSituation> postUnFinishSituationRequest(@Body RequestBody timeIntervalRequestBody);
 }
