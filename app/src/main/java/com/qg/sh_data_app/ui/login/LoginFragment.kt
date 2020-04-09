@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.Fade
-import cn.vove7.bottomdialog.builder.VH
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.ToastUtils

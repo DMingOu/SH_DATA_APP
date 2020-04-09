@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 阴影部分 -->
+  <!--最底层的View-->
+  <item >
+        <shape android:shape="rectangle">
+            <solid android:color="#10666666"/>
+            <corners android:radius="16pt" />
+        </shape>
+    </item>
+  <!--最上面的View，距离底部2pt的高度，这样底层的View就会露出，这样就有阴影效果了-->
+  <item android:top="0pt" android:bottom="2pt" android:left="0pt" android:right="0pt">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/>
+            <corners android:radius="16pt"/>
+            <stroke android:color="#47000000"
+                    android:width="1pt"/>
+        </shape>
+    </item>
+</layer-list>

@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21pt"
-            android:text="蔡老师 ，您好"
+            android:text="老师 ，您好"
             android:textColor="#3D3A3A"
             android:textSize="30pt"
             app:layout_constraintBottom_toBottomOf="@id/view_avatar_main"

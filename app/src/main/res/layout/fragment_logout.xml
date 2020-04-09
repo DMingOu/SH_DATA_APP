@@ -30,7 +30,7 @@
             android:layout_toEndOf= "@id/iv_avatar_logout"
             android:layout_marginStart="34pt"
             android:layout_centerVertical="true"
-            tools:text = "菜寻鲲"
+            android:text = "老师"
             android:textSize = "34pt"
             android:textColor="#3D3A3A"
             />

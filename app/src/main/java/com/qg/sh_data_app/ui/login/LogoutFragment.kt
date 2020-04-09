@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.SPUtils
+import com.leaf.library.StatusBarUtil
+import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.databinding.FragmentLogoutBinding
@@ -38,6 +41,7 @@ class LogoutFragment : BaseFragment(){
     }
 
     override fun configStatusBar() {
-
+        StatusBarUtil.setColor(this._mActivity, ColorUtils.string2Int("#F6F6F6"))
+        StatusBarUtil.setDarkMode(_mActivity)
     }
 }
