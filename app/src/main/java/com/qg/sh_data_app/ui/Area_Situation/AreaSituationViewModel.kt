@@ -33,15 +33,15 @@ class AreaSituationViewModel :ViewModel() {
         const val tag = "AreaSituationViewModel"
     }
 
-    init {
-        //初始化ViewModel时自动拉取数据
-        getAreaSituationData()
-    }
+//    init {
+//        //初始化ViewModel时自动拉取数据
+//        getAreaSituationData()
+//    }
 
-    private fun getAreaSituationData(){
+     fun getAreaSituationData(time:String){
         RetrofitManager.getInstance()
                 .apiService
-                .getHeatMapData("2020-04-04")
+                .getHeatMapData(time)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Observer<HeatMapData> {

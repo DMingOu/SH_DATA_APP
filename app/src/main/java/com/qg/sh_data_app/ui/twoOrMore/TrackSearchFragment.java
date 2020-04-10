@@ -13,11 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.qg.sh_data_app.base.BaseFragment;
+import com.qg.sh_data_app.core.Constants;
 import com.qg.sh_data_app.core.bean.SearchOneStuInfo;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentTrackSearchBinding;
+import com.qg.sh_data_app.ui.map.MapFragment;
 import com.qg.sh_data_app.util.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -110,7 +113,8 @@ public class TrackSearchFragment extends BaseFragment {
         adapter.setOnItemClickListener(new AdapterItemClick() {
             @Override
             public void onClick(int position) {
-                //传递数据并跳转至地图页
+                LiveEventBus.get(Constants.SHOW_MIGRATE_TRACK).post(dataBeanList.get(position));
+                start(new MapFragment());
             }
         });
     }

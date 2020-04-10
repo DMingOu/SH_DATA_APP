@@ -20,6 +20,7 @@ import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.core.bean.HeatMapData
 import com.qg.sh_data_app.core.bean.HeatMapDots
 import com.qg.sh_data_app.core.bean.SingleStudentMigrateData
+import com.qg.sh_data_app.core.bean.TwoOrMoreData
 import com.qg.sh_data_app.databinding.FragmentMapBinding
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
@@ -100,8 +101,11 @@ class MapFragment : BaseFragment() {
                 binding.dlStudentSituation.toBottom();
             }
         }
+        binding.mapBack.setOnClickListener{
+            pop()
+        }
 
-        val demo : SingleStudentMigrateData = GsonUtils.fromJson("{\n" +
+        val demo : TwoOrMoreData.DataBean = GsonUtils.fromJson("{\n" +
                 "            \"studentName\": \"李泽创\",\n" +
                 "            \"studentId\": \"12345678903\",\n" +
                 "            \"migrate\": [\n" +
@@ -204,7 +208,7 @@ class MapFragment : BaseFragment() {
                 "                    }\n" +
                 "                }\n" +
                 "            ]\n" +
-                "        }"  , SingleStudentMigrateData::class.java)
+                "        }"  , TwoOrMoreData.DataBean::class.java)
 
         showSingleStudentMigrateTrack(demo)
     }
@@ -241,8 +245,8 @@ class MapFragment : BaseFragment() {
                 })
         //粘性注册，收到展示特定学生迁移轨迹的事件
         LiveEventBus
-                .get(Constants.SHOW_MIGRATE_TRACK , SingleStudentMigrateData::class.java)
-                .observeSticky(this , Observer<SingleStudentMigrateData>{
+                .get(Constants.SHOW_MIGRATE_TRACK , TwoOrMoreData.DataBean::class.java)
+                .observeSticky(this , Observer<TwoOrMoreData.DataBean>{
                      showSingleStudentMigrateTrack(it)
                 })
     }
@@ -253,7 +257,7 @@ class MapFragment : BaseFragment() {
      * @param data SingleStudentMigrateData
      * Todo 开线程执行
      */
-    private fun showSingleStudentMigrateTrack(data : SingleStudentMigrateData){
+    private fun showSingleStudentMigrateTrack(data : TwoOrMoreData.DataBean){
         //地图画线
         val points : MutableList<LatLng> = mutableListOf()
         val list = data.migrate

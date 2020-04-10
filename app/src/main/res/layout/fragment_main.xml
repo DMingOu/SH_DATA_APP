@@ -18,7 +18,12 @@
             app:layout_constraintTop_toTopOf="parent"
             android:transitionName="@string/share_elements_iv_avatar"
              />
-
+        <ImageView
+            android:id="@+id/iv_bg_bottom_fragment_main"
+            android:layout_width="match_parent"
+            android:layout_height="750pt"
+            android:src="@mipmap/img_bg_fragment_main"
+            app:layout_constraintBottom_toBottomOf="parent" />
         <TextView
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
@@ -79,12 +84,7 @@
         app:layout_constraintTop_toBottomOf = "@id/btn__migrate_search_main" />
 
 
-        <ImageView
-            android:id="@+id/iv_bg_bottom_fragment_main"
-            android:layout_width="match_parent"
-            android:layout_height="750pt"
-            android:src="@mipmap/img_bg_fragment_main"
-            app:layout_constraintBottom_toBottomOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

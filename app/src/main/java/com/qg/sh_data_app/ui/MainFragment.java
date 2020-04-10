@@ -140,8 +140,6 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-
-
     @Override
     public boolean onBackPressedSupport() {
         //主页面返回键触发退出App
@@ -185,8 +183,6 @@ public class MainFragment extends BaseFragment {
         String path = FileUtil.getPath(getContext(),uri);
         upload(path);
     }
-
-
 
     //上传文件
     private void upload(String path){

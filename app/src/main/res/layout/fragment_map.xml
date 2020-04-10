@@ -11,6 +11,13 @@
           android:layout_width = "match_parent"
           android:layout_height = "wrap_content"
           />
+    <ImageView
+        android:id="@+id/map_back"
+        android:layout_width="22pt"
+        android:layout_height="31pt"
+        android:src="@drawable/map_back"
+        android:layout_marginStart="36pt"
+        android:layout_marginTop="29pt"/>
 
       <com.qg.sh_data_app.widget.BottomDrawerLayout
         android:id="@+id/dl_student_situation"

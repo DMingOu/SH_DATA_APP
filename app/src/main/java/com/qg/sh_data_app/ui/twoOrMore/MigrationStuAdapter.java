@@ -8,11 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.qg.sh_data_app.R;
+import com.qg.sh_data_app.core.Constants;
+import com.qg.sh_data_app.core.bean.Migrate;
+import com.qg.sh_data_app.core.bean.SingleStudentMigrateData;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.databinding.ItemStuInfoBinding;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.http.POST;
 
 public class MigrationStuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
@@ -55,6 +62,12 @@ public class MigrationStuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.name.setText(mDataBeanList.get(position).getStudentName());
         viewHolder.number.setText(mDataBeanList.get(position).getStudentId());
         viewHolder.migrateNumber.setText(mDataBeanList.get(position).getMigrate().size()+"");
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapterItemClick.onClick(position);
+            }
+        });
 
     }
 

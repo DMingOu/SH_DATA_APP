@@ -11,12 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.leaf.library.StatusBarUtil;
+import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
+import com.qg.sh_data_app.core.Constants;
 import com.qg.sh_data_app.core.bean.SearchAllStuInfo;
 import com.qg.sh_data_app.core.bean.SearchOneStuInfo;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentTwoOrMoreBinding;
+import com.qg.sh_data_app.ui.map.MapFragment;
 import com.qg.sh_data_app.util.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,7 +67,8 @@ public class TwoOrMoreFragment extends BaseFragment {
 
     @Override
     public void configStatusBar() {
-
+        StatusBarUtil.setColor(this._mActivity, getResources().getColor(R.color.title_bar_city_situation));
+        StatusBarUtil.setLightMode(_mActivity);
     }
 
     @Override
@@ -85,6 +91,14 @@ public class TwoOrMoreFragment extends BaseFragment {
             @Override
             public void onClick(int position) {
                 //传递数据并跳转至地图页
+            }
+        });
+        //item点击事件
+        adapter.setOnItemClickListener(new AdapterItemClick() {
+            @Override
+            public void onClick(int position) {
+                LiveEventBus.get(Constants.SHOW_MIGRATE_TRACK).post(dataBeanList.get(position));
+                start(new MapFragment());
             }
         });
     }
