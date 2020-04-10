@@ -3,6 +3,7 @@ package com.qg.sh_data_app.ui.twoOrMore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,16 +17,21 @@ import java.util.List;
 public class MigrationStuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private List<TwoOrMoreData.DataBean> mDataBeanList;
-    private ItemStuInfoBinding itemStuInfoBinding;
     private AdapterItemClick adapterItemClick;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         View view;
+        TextView name;
+        TextView number;
+        TextView migrateNumber;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
+            name = view.findViewById(R.id.tv_stu_name);
+            number = view.findViewById(R.id.tv_stu_number);
+            migrateNumber = view.findViewById(R.id.tv_stu_migrate_number);
         }
     }
 
@@ -45,9 +51,10 @@ public class MigrationStuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     //子项赋值
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        itemStuInfoBinding.tvStuName.setText(mDataBeanList.get(position).getStudentName());
-        itemStuInfoBinding.tvStuNumber.setText(mDataBeanList.get(position).getStudentId());
-        itemStuInfoBinding.tvStuMigrateNumber.setText(mDataBeanList.get(position).getMigrate().size());
+        ViewHolder viewHolder = (ViewHolder) holder;
+        viewHolder.name.setText(mDataBeanList.get(position).getStudentName());
+        viewHolder.number.setText(mDataBeanList.get(position).getStudentId());
+        viewHolder.migrateNumber.setText(mDataBeanList.get(position).getMigrate().size()+"");
 
     }
 

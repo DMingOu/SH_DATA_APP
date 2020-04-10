@@ -95,6 +95,9 @@ dependencies {
     //沉浸式状态栏
     implementation 'com.github.Ye-Miao:StatusBarUtil:1.7.5'
 
+    //可沉浸 标题栏TitleBar
+    implementation 'com.wuhenzhizao:titlebar:1.2.0'
+
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     //底部事件选择器
@@ -109,4 +112,7 @@ dependencies {
 
     //底部Sheet
     implementation 'com.github.Vove7.BottomDialog:bottomdialog:2.1-x'
+    
+    //时间选择
+    implementation 'jsc.kit.wheel:wheel-view:0.5.4'
 }

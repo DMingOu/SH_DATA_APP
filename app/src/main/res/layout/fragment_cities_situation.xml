@@ -8,7 +8,7 @@
        xmlns:app = "http://schemas.android.com/apk/res-auto">
 
        <RelativeLayout
-          android:id = "@+id/cl_title_city_situation"
+          android:id = "@+id/rl_title_city_situation"
           android:layout_width="match_parent"
           android:layout_height="88pt"
           android:orientation="horizontal"
@@ -34,7 +34,7 @@
                 android:textSize = "36pt"
                 />
 
-            </RelativeLayout>
+       </RelativeLayout>
 
        <androidx.recyclerview.widget.RecyclerView
        android:id = "@+id/rv_area_situation"

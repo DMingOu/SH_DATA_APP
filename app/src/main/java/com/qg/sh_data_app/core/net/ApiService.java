@@ -8,13 +8,19 @@ import com.qg.sh_data_app.core.bean.LoginCallback;
 import com.qg.sh_data_app.core.bean.UploadResult;
 
 import java.io.File;
+import java.util.List;
+
+import com.qg.sh_data_app.core.bean.UnFinishSituation;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -57,10 +63,19 @@ public interface ApiService {
 
     /**
      * 上传文件
-     * @param file
+     * @param
      * @return
      */
+    @Multipart
     @POST("api/student/import")
-    Observable<UploadResult> upload(@Query("file")File file);
+    Observable<UploadResult> upload(@Part List<MultipartBody.Part> partList);
 
+    /**
+     * 根据请求Post调用获取未打卡情况数据
+     * @param timeIntervalRequestBody 请求未打卡情况Body
+     * @return 未打卡情况回调
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("api/student/clock")
+    Observable<UnFinishSituation> postUnFinishSituationRequest(@Body RequestBody timeIntervalRequestBody);
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,13 +72,12 @@ public class TwoOrMoreFragment extends BaseFragment {
             //返回迁移搜索界面
             pop();
         });
-        fragmentTwoOrMoreBinding.btnGoToTrackSearch.setOnClickListener(view -> {
+        fragmentTwoOrMoreBinding.llBtnToSearch.setOnClickListener(view -> {
             //传递时间数据
             SearchOneStuInfo oneStuInfo = new SearchOneStuInfo();
             oneStuInfo.setStartTime(fragmentTwoOrMoreBinding.tvTwoStartTime.getText().toString());
             oneStuInfo.setEndTime(fragmentTwoOrMoreBinding.tvTwoEndTime.getText().toString());
-            EventBus.getDefault()
-                    .post(oneStuInfo);
+            EventBus.getDefault().postSticky(oneStuInfo);
             //跳转至轨迹搜索界面
             start(new TrackSearchFragment());
         });
@@ -98,7 +98,7 @@ public class TwoOrMoreFragment extends BaseFragment {
     }
 
     //根据上一个fragment传来的时间进行搜索
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.BACKGROUND,sticky = true)
     public void search(SearchAllStuInfo info){
         initTitle(info.getStartTime(),info.getEndTime());
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtil.GsonString(info));
@@ -116,7 +116,10 @@ public class TwoOrMoreFragment extends BaseFragment {
                     @Override
                     public void onNext(TwoOrMoreData twoOrMoreData) {
                         if(twoOrMoreData.getCode().equals("1")&&twoOrMoreData.getData()!=null){
+                            Log.d(TAG, "onNext:1 ");
                             showList(twoOrMoreData.getData());
+                        }else {
+                            Toast.makeText(getContext(),"该时间段数据为空！",Toast.LENGTH_SHORT).show();
                         }
 
                     }

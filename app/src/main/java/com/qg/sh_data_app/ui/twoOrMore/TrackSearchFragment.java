@@ -123,8 +123,8 @@ public class TrackSearchFragment extends BaseFragment {
         fragmentTrackSearchBinding.rcvTrackSearchResult.setAdapter(adapter);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    private void getData(SearchOneStuInfo info){
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void getData(SearchOneStuInfo info){
         startTime = info.getStartTime();
         endTime=info.getEndTime();
     }

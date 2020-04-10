@@ -16,8 +16,8 @@ class AreaSituationAdapter (data : MutableList<HeatMapDots>)
 
 
     override fun convert(holder: BaseViewHolder, item: HeatMapDots) {
-//        helper.setText(R.id.tv_area_name , item.name) 后台暂未实现字段
-        holder.setText(R.id.tv_area_name , "后台尚未定义字段")
-        holder.setText(R.id.tv_student_count,item.count.toString()  )
+        if("" == item.city || item.count < 0) return
+        holder.setText(R.id.tv_area_name , item.city)
+        holder.setText(R.id.tv_student_count,item.count.toString())
     }
 }

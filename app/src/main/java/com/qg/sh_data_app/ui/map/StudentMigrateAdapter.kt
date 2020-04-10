@@ -1,4 +1,4 @@
-package com.qg.sh_data_app.ui
+package com.qg.sh_data_app.ui.map
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -6,7 +6,7 @@ import com.qg.sh_data_app.R
 import com.qg.sh_data_app.core.bean.Migrate
 
 /**
- * @description:适配器：学生迁移记录
+ * @description:地图页抽屉内容列表适配器：学生迁移记录
  * @author: ODM
  * @date: 2020/4/8
  */

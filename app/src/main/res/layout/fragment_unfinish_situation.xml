@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:orientation="vertical"
+              android:background="#F6F6F6"
+              xmlns:titlebar = "http://schemas.android.com/apk/res-auto">
+
+
+       <RelativeLayout
+                android:id = "@+id/rl_title_sign_situation"
+                android:layout_width="match_parent"
+                android:layout_height="88pt"
+                android:orientation="horizontal"
+                android:background="#5EBEFF">
+
+                <ImageView
+                android:id = "@+id/iv_back_sign_situation"
+                android:layout_width = "22pt"
+                android:layout_height = "31pt"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="36pt"
+                android:src = "@mipmap/back"
+                />
+
+                <TextView
+                android:id = "@+id/tv_title_sign_situation"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_centerInParent="true"
+                android:text = "打卡情况"
+                android:textColor = "#FFFFFF"
+                android:textSize = "36pt"
+                />
+
+       </RelativeLayout>
+
+
+           <TextView
+           android:layout_width = "match_parent"
+           android:layout_height = "wrap_content"
+           android:id = "@+id/tv_bg_unfinished"
+           android:text ="未打卡"
+           android:textColor="#B0B0B0"
+           android:textSize="27pt"
+           android:layout_gravity="center_vertical"
+           android:paddingStart="17pt"/>
+
+           <View
+           android:id="@+id/view_divideLine_avatar"
+           android:layout_width="match_parent"
+           android:layout_height="2pt"
+           android:layout_alignParentBottom="true"
+           android:background="@color/bg_divide_line" />
+
+
+           <androidx.recyclerview.widget.RecyclerView
+           android:id ="@+id/rv_unfinished_situation"
+           android:layout_width = "match_parent"
+           android:layout_height = "wrap_content"
+           />
+
+</LinearLayout>

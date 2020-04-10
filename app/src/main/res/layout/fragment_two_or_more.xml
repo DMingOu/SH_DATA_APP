@@ -19,7 +19,8 @@
         <TextView
             android:id="@+id/tv_two_start_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_toStartOf="@+id/tv_from_to"
             android:text="2020.04.04"
             android:textColor="#ffffff"
@@ -35,7 +36,8 @@
         <TextView
             android:id="@+id/tv_two_end_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_toEndOf="@+id/tv_from_to"
             android:text="2020.04.05"
             android:textColor="#ffffff"
@@ -45,19 +47,29 @@
         android:layout_width="match_parent"
         android:layout_height="106pt"
         android:background="#5EBEFF">
-        <Button
-            android:id="@+id/btn_go_to_track_search"
+        <LinearLayout
+            android:id="@+id/ll_btn_to_search"
             android:layout_width="721pt"
             android:layout_height="67pt"
+            android:orientation="horizontal"
             android:background="@drawable/bg_search_btn"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/search"
-            android:paddingStart="22pt"
-            android:drawablePadding="20pt"
-            android:text="搜索学生轨迹"
-            android:textColor="#9C9B9B"
-            android:textSize="26pt"/>
+            android:layout_centerInParent="true">
+            <ImageView
+                android:layout_width="33pt"
+                android:layout_height="33pt"
+                android:layout_marginStart="22pt"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/search"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20pt"
+                android:gravity="center_vertical"
+                android:text="搜索学生轨迹"
+                android:textColor="#9C9B9B"
+                android:textSize="26pt"/>
+        </LinearLayout>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

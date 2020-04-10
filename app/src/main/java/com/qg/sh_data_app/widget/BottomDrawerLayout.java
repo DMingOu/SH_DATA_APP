@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.qg.sh_data_app.R;
 
 /**
- * @description: 底部抽屉布局
+ * @description: 自定义底部抽屉布局
  * @author: ODM
  * @date: 2020/4/8
  */

@@ -1,6 +1,8 @@
 package com.qg.sh_data_app.ui;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,8 +11,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,15 +32,21 @@ import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.core.bean.UploadResult;
 import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
+import com.qg.sh_data_app.ui.Sign_Situation.UnFinishSituationFragment;
 import com.qg.sh_data_app.ui.login.LogoutFragment;
+import com.qg.sh_data_app.util.FileUtil;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -89,8 +99,8 @@ public class MainFragment extends BaseFragment {
         binding.btnAddDataMain.setOnClickListener( v -> {
             //跳转至文件管理器选择文件
             //权限处理
-            if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             } else {
                 openFileSelector();
             }
@@ -98,23 +108,34 @@ public class MainFragment extends BaseFragment {
 
         //迁移搜索的点击事件
         binding.btnMigrateSearchMain.setOnClickListener( v-> {
-            //
             start(new MigrationSearchFragment());
+        });
+
+        binding.btnSignSituationMain.setOnClickListener(v -> {
+            start(new UnFinishSituationFragment());
         });
 
         //左上角头像的点击事件
         binding.viewAvatarMain.setOnClickListener( v -> {
-            LogoutFragment fragment = new  LogoutFragment();
+            LogoutFragment targetFragment = new LogoutFragment();
+//            CitySituationFragment targetFragment = new CitySituationFragment();
+            Bundle bundle = new Bundle();
+            // 传递分割后的用户名
+            String[] strings = binding.tvWelcome.getText().toString().split(" ，");
+            String userName = strings[0] ;
+            bundle.putString("USERNAME", userName);
+            //为接收方Fragment设置数据
+            targetFragment.setArguments(bundle);
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 setExitTransition(new Fade());
-                fragment.setEnterTransition(new Fade());
-                fragment.setSharedElementEnterTransition(new Fade());
-                fragment.setSharedElementReturnTransition(new Fade());
+                targetFragment.setEnterTransition(new Fade());
+                targetFragment.setSharedElementEnterTransition(new Fade());
+                targetFragment.setSharedElementReturnTransition(new Fade());
                 extraTransaction()
                         .addSharedElement(binding.viewAvatarMain, StringUtils.getString(R.string.share_elements_iv_avatar))
-                        .start(fragment);
+                        .start(targetFragment);
             } else {
-                start(fragment);
+                start(targetFragment);
             }
         });
     }
@@ -133,6 +154,7 @@ public class MainFragment extends BaseFragment {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
+        //intent.setType("application/vnd.ms-excel application/x-excel");
         this.startActivityForResult(intent, 1);
     }
 
@@ -159,30 +181,23 @@ public class MainFragment extends BaseFragment {
             // 用户未选择任何文件，直接返回
             return;
         }
-        Uri uri = data.getData();
-        String path = getImagepath(uri);
+        Uri uri = data.getData(); // 获取用户选择文件的URI
+        String path = FileUtil.getPath(getContext(),uri);
         upload(path);
     }
 
-    //获取图片真实路径
-    private String getImagepath(Uri uri) {
-        String path = null;
-        Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-            cursor.close();
-        }
-        return path;
-    }
+
 
     //上传文件
     private void upload(String path){
         File excel = new File(path);
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"),excel);
+        builder.addFormDataPart("file",excel.getName(),body);
+        List<MultipartBody.Part> parts = builder.build().parts();
         RetrofitManager.getInstance()
                 .getApiService()
-                .upload(excel)
+                .upload(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UploadResult>() {
@@ -194,15 +209,20 @@ public class MainFragment extends BaseFragment {
                     @Override
                     public void onNext(UploadResult uploadresult) {
                         if(uploadresult.getCode().equals("1")){
-                            Toast.makeText(getContext(),"文件已成功上传！",LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"文件已成功上传！",Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "onNext: success");
                         }else {
-                            Toast.makeText(getContext(),"文件上传失败！请重新上传。",LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),uploadresult.getMessage(),Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "onNext: fail");
+                            Log.d(TAG, uploadresult.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d(TAG, "onError: fail");
+                        Log.d(TAG, e.toString());
+                        Log.d(TAG, e.getMessage());
                     }
 
                     @Override
@@ -212,4 +232,5 @@ public class MainFragment extends BaseFragment {
                 });
 
     }
+
 }

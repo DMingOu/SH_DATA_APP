@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.SPUtils
 import com.leaf.library.StatusBarUtil
-import com.qg.sh_data_app.R
 import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.databinding.FragmentLogoutBinding
 import com.qg.sh_data_app.ui.MainFragment
+
 
 /**
  * @description: 退出登录页面
@@ -29,6 +29,17 @@ class LogoutFragment : BaseFragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentLogoutBinding.inflate(inflater , container , false)
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        getTransitiveData()
+    }
+
+    private fun getTransitiveData() {
+        // 获取由启动者Fragment传递过来的String类型数据
+        val valueStr = arguments?.getString("USERNAME") as String
+        binding.tvUserNameLogout.text = valueStr
     }
 
 

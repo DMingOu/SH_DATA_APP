@@ -4,23 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ClickUtils
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.leaf.library.StatusBarUtil
-import com.orhanobut.logger.Logger
 import com.qg.sh_data_app.R
-import com.qg.sh_data_app.base.BaseFragment
 import com.qg.sh_data_app.base.BaseMVVMFragment
-import com.qg.sh_data_app.core.Constants
 import com.qg.sh_data_app.databinding.FragmentCitiesSituationBinding
-import com.qg.sh_data_app.ui.MapFragment
+import com.qg.sh_data_app.ui.map.MapFragment
+import org.greenrobot.eventbus.Subscribe
 
 /**
- * @description: 城市情况页面Fragment
+ * @description: 城市打卡情况页面Fragment
  * @author: ODM
  * @date: 2020/4/7
  */
@@ -39,21 +35,20 @@ class CitySituationFragment : BaseMVVMFragment() {
         return binding.root
     }
 
-    override fun configStatusBar() {
-        StatusBarUtil.setColor(this._mActivity, resources.getColor(R.color.title_bar_city_situation))
-        StatusBarUtil.setLightMode(_mActivity)
-    }
+        override fun configStatusBar() {
+            StatusBarUtil.setColor(this._mActivity, resources.getColor(R.color.title_bar_city_situation))
+            StatusBarUtil.setLightMode(_mActivity)
+        }
 
-    override fun initViews() {
-        //标题栏左方返回按钮的点击事件，弹出当前Fragment
-        binding.ivBackCitySituation.setOnClickListener {
+        override fun initViews() {
+            //标题栏左方返回按钮的点击事件，弹出当前Fragment
+            binding.ivBackCitySituation.setOnClickListener {
             pop()
         }
         //对RecyclerView进行配置
         //初始化 RecyclerView 的适配器
         rvAdapter = AreaSituationAdapter(mutableListOf())
         binding.rvAreaSituation.layoutManager = LinearLayoutManager(activity)
-//        binding.rvAreaSituation.addOnScrollListener(onScrollListener)
 
         binding.rvAreaSituation.adapter = rvAdapter
         rvAdapter?.animationEnable = true
@@ -70,7 +65,7 @@ class CitySituationFragment : BaseMVVMFragment() {
             override fun onBeforeTriggerClick(v: View, count: Int) {
                 if(count == 1 ){
                     viewModel?.postShowHeatMapEvent()
-                    start( MapFragment())
+                    start(MapFragment())
                 }
             }
         })
