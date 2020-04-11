@@ -33,6 +33,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lintOptions {
+
+        checkReleaseBuilds false
+
+        abortOnError false
+
+    }
 }
 
 dependencies {
@@ -101,10 +108,8 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     //底部事件选择器
-    implementation 'jsc.kit.wheel:wheel-view:0.5.4'
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
 
-    //implementation 'com.qmuiteam:qmui:1.2.0'
     implementation 'com.qmuiteam:qmui:2.0.0-alpha07'
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"

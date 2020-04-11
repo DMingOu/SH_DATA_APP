@@ -132,11 +132,12 @@ public class TwoOrMoreFragment extends BaseFragment {
 
                     @Override
                     public void onNext(TwoOrMoreData twoOrMoreData) {
-                        if(twoOrMoreData.getCode().equals("1")&&twoOrMoreData.getData()!=null){
+                        if(twoOrMoreData.getData().size()==0){
+                            Toast.makeText(getContext(),"该时间段数据为空！",Toast.LENGTH_LONG).show();
+                            pop();
+                        } else if(twoOrMoreData.getCode().equals("1")){
                             Log.d(TAG, "onNext:1 ");
                             showList(twoOrMoreData.getData());
-                        }else {
-                            Toast.makeText(getContext(),"该时间段数据为空！",Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -144,6 +145,8 @@ public class TwoOrMoreFragment extends BaseFragment {
                     @Override
                     public void onError(Throwable e) {
                         Log.d(TAG, "onError: 出现异常。");
+                        Toast.makeText(getContext(),"网络出现异常，请稍后重试。",Toast.LENGTH_LONG).show();
+                        pop();
                     }
 
                     @Override

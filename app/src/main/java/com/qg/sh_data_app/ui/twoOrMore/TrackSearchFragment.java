@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,7 +89,6 @@ public class TrackSearchFragment extends BaseFragment {
 //                //隐藏列表，显示加载条
 //                fragmentTrackSearchBinding.tvLoading.setVisibility(View.VISIBLE);
 //                fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.GONE);
-                search();
             }
 
             @Override
@@ -96,7 +96,9 @@ public class TrackSearchFragment extends BaseFragment {
 //                //隐藏加载条，显示列表
 //                fragmentTrackSearchBinding.tvLoading.setVisibility(View.GONE);
 //                fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.VISIBLE);
-                search();
+                if(fragmentTrackSearchBinding.edtSearchKeyword.getText()!=null){
+                    search();
+                }
             }
         });
         //软键盘回车监听
@@ -153,7 +155,10 @@ public class TrackSearchFragment extends BaseFragment {
 
                     @Override
                     public void onNext(TwoOrMoreData twoOrMoreData) {
-                        if(twoOrMoreData.getCode().equals("1")&&twoOrMoreData.getData()!=null){
+                        if(twoOrMoreData.getData().size()==0){
+                            Log.d(TAG, "onNext: ");
+                            Toast.makeText(getContext(),"没有您要查找的学生或输入有误。",Toast.LENGTH_LONG).show();
+                        }else if(twoOrMoreData.getCode().equals("1")){
                             showList(twoOrMoreData.getData());
                         }
                     }
@@ -161,6 +166,7 @@ public class TrackSearchFragment extends BaseFragment {
                     @Override
                     public void onError(Throwable e) {
                         Log.d(TAG, "onError: 出现异常。");
+                        Toast.makeText(getContext(),"网络出现异常，请稍后重试。",Toast.LENGTH_LONG).show();
                     }
 
                     @Override

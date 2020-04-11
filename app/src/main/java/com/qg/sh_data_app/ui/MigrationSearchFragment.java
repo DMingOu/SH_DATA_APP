@@ -27,6 +27,7 @@ import com.qg.sh_data_app.databinding.FragmentMigrationSearchBinding;
 import com.qg.sh_data_app.ui.Area_Situation.CitySituationFragment;
 import com.qg.sh_data_app.ui.twoOrMore.TwoOrMoreFragment;
 import com.qg.sh_data_app.util.CustomClickListener;
+import com.qg.sh_data_app.util.DateUtils;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 import jsc.kit.wheel.base.WheelItem;
@@ -34,6 +35,7 @@ import jsc.kit.wheel.dialog.ColumnWheelDialog;
 import jsc.kit.wheel.dialog.DateTimeWheelDialog;
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,13 +145,22 @@ public class MigrationSearchFragment extends BaseFragment {
                         //获取选择的时间
                         String startTime = fragmentMigrationSearchBinding.tvStartTime.getText().toString();
                         String endTime = fragmentMigrationSearchBinding.tvEndTime.getText().toString();
-                        SearchAllStuInfo allStuInfo = new SearchAllStuInfo();
-                        allStuInfo.setStartTime(startTime);
-                        allStuInfo.setEndTime(endTime);
-                        //传递数据
-                        EventBus.getDefault().postSticky(allStuInfo);
-                        //跳转迁移轨迹页面
-                        start(new TwoOrMoreFragment());
+                        try {
+                            if(DateUtils.compare(startTime,endTime)){
+                                SearchAllStuInfo allStuInfo = new SearchAllStuInfo();
+                                allStuInfo.setStartTime(startTime);
+                                allStuInfo.setEndTime(endTime);
+                                //传递数据
+                                EventBus.getDefault().postSticky(allStuInfo);
+                                //跳转迁移轨迹页面
+                                start(new TwoOrMoreFragment());
+                            }else {
+                                Toast.makeText(getContext(),"请正确选择时间！",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }else {
                         Toast.makeText(getContext(),"请选择时间！",Toast.LENGTH_SHORT).show();
                     }

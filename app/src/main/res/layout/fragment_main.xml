@@ -50,7 +50,7 @@
             android:layout_height="95pt"
             android:layout_marginTop="72pt"
             android:background="@drawable/shape_button_gradient_blue_fragment_main"
-            android:text="增加数据"
+            android:text="导入数据"
             android:textColor="#FFFFFF"
             android:textSize="36pt"
             app:layout_constraintEnd_toEndOf="parent"
