@@ -27,7 +27,7 @@
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21pt"
+            android:layout_marginStart="34pt"
             tools:text="老师 ，您好"
             android:textColor="#3D3A3A"
             android:textSize="30pt"

@@ -106,6 +106,8 @@ public class TwoOrMoreFragment extends BaseFragment {
         });
     }
 
+
+
     //初始化列表
     private void initList(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -133,10 +135,15 @@ public class TwoOrMoreFragment extends BaseFragment {
                     @Override
                     public void onNext(TwoOrMoreData twoOrMoreData) {
                         if(twoOrMoreData.getData().size()==0){
-                            Toast.makeText(getContext(),"该时间段数据为空！",Toast.LENGTH_LONG).show();
-                            pop();
+                            //Toast.makeText(getContext(),"该时间段数据为空！",Toast.LENGTH_LONG).show();
+                            fragmentTwoOrMoreBinding.rcvTwoDayResult.setVisibility(View.GONE);
+                            fragmentTwoOrMoreBinding.tvHint.setVisibility(View.VISIBLE);
+                            fragmentTwoOrMoreBinding.llBtnToSearch.setClickable(false);
                         } else if(twoOrMoreData.getCode().equals("1")){
                             Log.d(TAG, "onNext:1 ");
+                            fragmentTwoOrMoreBinding.rcvTwoDayResult.setVisibility(View.VISIBLE);
+                            fragmentTwoOrMoreBinding.tvHint.setVisibility(View.GONE);
+                            fragmentTwoOrMoreBinding.llBtnToSearch.setClickable(true);
                             showList(twoOrMoreData.getData());
                         }
 

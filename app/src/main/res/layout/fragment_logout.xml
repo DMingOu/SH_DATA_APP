@@ -42,7 +42,7 @@
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
             android:layout_toEndOf= "@id/iv_avatar_logout"
-            android:layout_marginStart="34pt"
+            android:layout_marginStart="21pt"
             android:layout_centerVertical="true"
             android:text = "老师"
             android:textSize = "34pt"

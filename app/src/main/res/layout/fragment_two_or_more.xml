@@ -71,7 +71,15 @@
         </LinearLayout>
 
     </RelativeLayout>
-
+    <TextView
+        android:id = "@+id/tv_hint"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:gravity="center"
+        android:text="此日期没有数据，请重新选择:("
+        android:textSize="36pt"
+        android:visibility="gone"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_two_day_result"
         android:layout_width="match_parent"

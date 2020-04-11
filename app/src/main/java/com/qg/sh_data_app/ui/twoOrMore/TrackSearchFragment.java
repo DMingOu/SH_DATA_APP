@@ -158,8 +158,12 @@ public class TrackSearchFragment extends BaseFragment {
                         if(twoOrMoreData.getData().size()==0){
                             Log.d(TAG, "onNext: ");
                             Toast.makeText(getContext(),"没有您要查找的学生或输入有误。",Toast.LENGTH_LONG).show();
+                            fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.GONE);
+                            fragmentTrackSearchBinding.tvHintSearch.setVisibility(View.VISIBLE);
                         }else if(twoOrMoreData.getCode().equals("1")){
                             showList(twoOrMoreData.getData());
+                            fragmentTrackSearchBinding.rcvTrackSearchResult.setVisibility(View.VISIBLE);
+                            fragmentTrackSearchBinding.tvHintSearch.setVisibility(View.GONE);
                         }
                     }
 

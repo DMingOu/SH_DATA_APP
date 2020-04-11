@@ -256,7 +256,7 @@ public class MainFragment extends BaseFragment {
                     public void onError(Throwable e) {
                         Log.d(TAG, "onError: fail");
                         Log.d(TAG, e.toString());
-                        Log.d(TAG, e.getMessage());
+                        Toast.makeText(getContext(),"网络出现异常，请稍后重试。",Toast.LENGTH_LONG).show();
                     }
 
                     @Override
