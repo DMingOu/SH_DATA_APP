@@ -181,8 +181,7 @@ public class MigrationSearchFragment extends BaseFragment {
             @Override
             public void onTimeSelect(Date date, View v) {
                 try {
-                    if(DateUtils.compare(new SimpleDateFormat("yyyy-MM-dd").format(date),
-                            new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())))){
+                    if(DateUtils.compare(new SimpleDateFormat("yyyy-MM-dd").format(date),DateUtils.getNextTime())){
                         tv.setTextColor(Color.parseColor("#404040"));
                         tv.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
                         Log.d(TAG, "onTimeSelect: "+date.toString());

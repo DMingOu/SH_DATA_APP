@@ -2,6 +2,7 @@ package com.qg.sh_data_app.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
@@ -17,5 +18,11 @@ public class DateUtils {
         } else {
             return false;
         }
+    }
+    public static String getNextTime(){
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.setTime(new Date());
+        tomorrow.add(Calendar.DAY_OF_MONTH,1);
+        return new SimpleDateFormat("yyyy-MM-dd").format(tomorrow.getTime());
     }
 }
