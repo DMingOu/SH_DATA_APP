@@ -113,10 +113,12 @@ public class TrackSearchFragment extends BaseFragment {
         adapter.setOnItemClickListener(new AdapterItemClick() {
             @Override
             public void onClick(int position) {
-                LiveEventBus.get(Constants.SHOW_MIGRATE_TRACK).post(dataBeanList.get(position));
-                start(new MapFragment());
+                    LiveEventBus.get(Constants.SHOW_MIGRATE_TRACK).post(dataBeanList.get(position));
+                    start(new MapFragment());
             }
         });
+
+
     }
 
     //初始化列表

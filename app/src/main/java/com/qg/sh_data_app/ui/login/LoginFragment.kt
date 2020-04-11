@@ -56,9 +56,9 @@ class LoginFragment : BaseMVVMFragment() {
     }
 
     override fun initViews() {
-        //临时账号密码，方便测试
+/*        //临时账号密码，方便测试
         binding.etAccountLogin.setText("test")
-        binding.etPasswordLogin.setText("a123456")
+        binding.etPasswordLogin.setText("a123456")*/
 
         //登录按钮的注册事件--防止多次点击
         binding.btnLogin.setOnClickListener(object : ClickUtils.OnMultiClickListener(2) {
