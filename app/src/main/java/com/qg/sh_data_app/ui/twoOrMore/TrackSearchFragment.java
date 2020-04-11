@@ -117,8 +117,6 @@ public class TrackSearchFragment extends BaseFragment {
                     start(new MapFragment());
             }
         });
-
-
     }
 
     //初始化列表

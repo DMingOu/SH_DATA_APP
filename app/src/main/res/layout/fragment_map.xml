@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_bottom_drawer_radius"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:defaultHeight="90pt"
         app:realHeight="640pt">
 
