@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_bottom_drawer_radius"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:defaultHeight="90pt"
         app:realHeight="640pt">
 
@@ -46,7 +46,7 @@
                  <TextView
                  android:id="@+id/tv_student_info"
                  android:layout_width="wrap_content"
-                 android:layout_height="80pt"
+                 android:layout_height="wrap_content"
                  android:layout_centerHorizontal="true"
                  android:layout_below="@id/view_guide_stu_migrate"
                  android:layout_marginTop="25pt"
