@@ -28,6 +28,8 @@ import androidx.core.content.ContextCompat;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.leaf.library.StatusBarUtil;
+import com.leon.lfilepickerlibrary.LFilePicker;
+import com.leon.lfilepickerlibrary.filter.LFileFilter;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
 import com.qg.sh_data_app.core.Constants;
@@ -115,6 +117,12 @@ public class MainFragment extends BaseFragment {
                 } else {
                     openFileSelector();
                 }
+//                new LFilePicker().withSupportFragment(MainFragment.this)
+//                        .withRequestCode(3)
+//                        .withTitle("open from fragment")
+//                        .withMutilyMode(true)
+//                        //.withFileFilter(new String[]{".xlsx", ".xls"})
+//                        .start();
             }
             @Override
             protected void onFastClick() {
@@ -213,13 +221,28 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            // 用户未选择任何文件，直接返回
-            return;
+        switch (requestCode){
+            case 3:
+                if (data == null) {
+                    // 用户未选择任何文件，直接返回
+                    return;
+                }else{
+                    List<String> list = data.getStringArrayListExtra("paths");
+                    Toast.makeText(getContext(),list.size()+"个文件",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case 1:
+                if (data == null) {
+                    // 用户未选择任何文件，直接返回
+                    return;
+                }
+                Uri uri = data.getData(); // 获取用户选择文件的URI
+                String path = FileUtil.getPath(getContext(),uri);
+                upload(path);
+                break;
+
         }
-        Uri uri = data.getData(); // 获取用户选择文件的URI
-        String path = FileUtil.getPath(getContext(),uri);
-        upload(path);
+
     }
 
     //上传文件
@@ -242,13 +265,13 @@ public class MainFragment extends BaseFragment {
 
                     @Override
                     public void onNext(UploadResult uploadresult) {
-                        if(uploadresult.getCode().equals("1")){
-                            Toast.makeText(getContext(),"文件已成功上传！",Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "onNext: success");
+                        if(uploadresult.getCode().equals("1")&&uploadresult.getData()==null){
+                                Toast.makeText(getContext(),"文件已成功上传！",Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "onNext: "+uploadresult.getMessage());
                         }else {
-                            Toast.makeText(getContext(),uploadresult.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),uploadresult.getData(),Toast.LENGTH_LONG).show();
                             Log.d(TAG, "onNext: fail");
-                            Log.d(TAG, uploadresult.getMessage());
+                            Log.d(TAG, uploadresult.getData());
                         }
                     }
 
