@@ -64,18 +64,7 @@ class CitySituationFragment : BaseMVVMFragment() {
             //尚未定义点击事件
         }
 
-        //点击查看热力图 & 防止多次点击启动多个Fragment
-        rvAdapter?.headerLayout?.setOnClickListener(object : ClickUtils.OnMultiClickListener(2) {
-            override fun onTriggerClick(v: View) {
-            }
-            override fun onBeforeTriggerClick(v: View, count: Int) {
-                if(count == 1 ){
-                    //给地图页发送 查看此日期热力图事件
-                    viewModel?.postShowHeatMapEvent()
-                    start(MapFragment())
-                }
-            }
-        })
+
     }
 
     override fun initViewModelObserve() {
@@ -90,6 +79,18 @@ class CitySituationFragment : BaseMVVMFragment() {
                     //动态添加RecyclerView 的头布局 --按钮点击查看热力图
                     val btnHeaderView : View = layoutInflater.inflate(R.layout.item_header_rv_area_situation, binding.rvAreaSituation, false)
                     rvAdapter?.addHeaderView(btnHeaderView)
+                    //点击查看热力图 & 防止多次点击启动多个Fragment
+                    rvAdapter?.headerLayout?.setOnClickListener(object : ClickUtils.OnMultiClickListener(2) {
+                        override fun onTriggerClick(v: View) {
+                        }
+                        override fun onBeforeTriggerClick(v: View, count: Int) {
+                            if(count == 1 ){
+                                //给地图页发送 查看此日期热力图事件
+                                viewModel?.postShowHeatMapEvent()
+                                start(MapFragment())
+                            }
+                        }
+                    })
                     rvAdapter?.setNewData(it.data.toMutableList())
                 }
             })
