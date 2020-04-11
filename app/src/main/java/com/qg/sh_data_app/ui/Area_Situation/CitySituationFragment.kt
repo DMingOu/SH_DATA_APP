@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.leaf.library.StatusBarUtil
 import com.qg.sh_data_app.R
@@ -62,9 +63,7 @@ class CitySituationFragment : BaseMVVMFragment() {
         rvAdapter?.setOnItemClickListener { adapter, view, position ->
             //尚未定义点击事件
         }
-        //动态添加RecyclerView 的头布局 --按钮点击查看热力图
-        val btnHeaderView : View = layoutInflater.inflate(R.layout.item_header_rv_area_situation, binding.rvAreaSituation, false)
-        rvAdapter?.addHeaderView(btnHeaderView)
+
         //点击查看热力图 & 防止多次点击启动多个Fragment
         rvAdapter?.headerLayout?.setOnClickListener(object : ClickUtils.OnMultiClickListener(2) {
             override fun onTriggerClick(v: View) {
@@ -82,7 +81,17 @@ class CitySituationFragment : BaseMVVMFragment() {
     override fun initViewModelObserve() {
         viewModel?.apply {
             areaData.observe(this@CitySituationFragment , Observer {
-                rvAdapter?.setNewData(it.data.toMutableList())
+                val data = it.data.toMutableList()
+                if(data.size == 0){
+                    ToastUtils.showLong("此日期没有数据，请重新选择")
+                    binding.rvAreaSituation.visibility = View.GONE
+                    binding.tvEmptyCitySituation.visibility = View.VISIBLE
+                }else{
+                    //动态添加RecyclerView 的头布局 --按钮点击查看热力图
+                    val btnHeaderView : View = layoutInflater.inflate(R.layout.item_header_rv_area_situation, binding.rvAreaSituation, false)
+                    rvAdapter?.addHeaderView(btnHeaderView)
+                    rvAdapter?.setNewData(it.data.toMutableList())
+                }
             })
         }
     }

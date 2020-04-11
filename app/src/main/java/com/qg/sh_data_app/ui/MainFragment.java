@@ -25,10 +25,12 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.leaf.library.StatusBarUtil;
 import com.qg.sh_data_app.R;
 import com.qg.sh_data_app.base.BaseFragment;
+import com.qg.sh_data_app.core.Constants;
 import com.qg.sh_data_app.core.bean.UploadResult;
 import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
@@ -72,10 +74,14 @@ public class MainFragment extends BaseFragment {
         return binding.getRoot();
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
+
+
 
     @Override
     public void onDestroyView() {
@@ -95,6 +101,9 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void initViews() {
+        //头像旁边的欢迎预言
+        binding.tvWelcome.setText(SPUtils.getInstance().getString(Constants.USER_NAME,"") + " ，您好");
+
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         //导入数据的点击事件
         binding.btnAddDataMain.setOnClickListener(new CustomClickListener() {
@@ -144,9 +153,10 @@ public class MainFragment extends BaseFragment {
                 // 传递分割后的用户名
                 String[] strings = binding.tvWelcome.getText().toString().split(" ，");
                 String userName = strings[0] ;
-                bundle.putString("USERNAME", userName);
+                bundle.putString(Constants.USER_NAME, userName);
                 //为接收方Fragment设置数据
                 targetFragment.setArguments(bundle);
+                //设置转场的动画
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                     setExitTransition(new Fade());
                     targetFragment.setEnterTransition(new Fade());

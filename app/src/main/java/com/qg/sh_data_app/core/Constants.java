@@ -13,5 +13,6 @@ public class Constants {
 
     public static final String SHOW_MIGRATE_TRACK = "show_migrate_track";
 
+    public static final String USER_NAME = "user_name";
 
 }

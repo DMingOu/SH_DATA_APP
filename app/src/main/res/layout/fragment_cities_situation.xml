@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-       android:id = "@+id/cl_city_situation"
+<RelativeLayout
+       android:id = "@+id/rl_city_situation"
        xmlns:android = "http://schemas.android.com/apk/res/android"
        android:layout_width = "match_parent"
        android:layout_height = "match_parent"
@@ -36,10 +36,21 @@
 
        </RelativeLayout>
 
+       <TextView
+       android:id = "@+id/tvEmpty_CitySituation"
+       android:layout_width = "wrap_content"
+       android:layout_height = "wrap_content"
+       android:layout_centerInParent="true"
+       android:text="此日期没有数据，请重新选择:("
+       android:textSize="36pt"
+       android:visibility="gone"
+       />
+
        <androidx.recyclerview.widget.RecyclerView
        android:id = "@+id/rv_area_situation"
        android:layout_width = "match_parent"
        android:layout_height = "match_parent"
+       android:layout_below="@id/rl_title_city_situation"
        />
 
-</LinearLayout>
+</RelativeLayout>

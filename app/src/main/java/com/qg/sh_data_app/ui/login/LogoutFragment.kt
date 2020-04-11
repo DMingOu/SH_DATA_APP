@@ -38,7 +38,7 @@ class LogoutFragment : BaseFragment(){
 
     private fun getTransitiveData() {
         // 获取由启动者Fragment传递过来的String类型数据
-        val valueStr = arguments?.getString("USERNAME") as String
+        val valueStr = arguments?.getString(Constants.USER_NAME) as String
         binding.tvUserNameLogout.text = valueStr
     }
 
@@ -47,6 +47,7 @@ class LogoutFragment : BaseFragment(){
         binding.tvLogout.setOnClickListener {
             //清除SP中的 Authorization 属性值，置值为空字符串
             SPUtils.getInstance().put(Constants.USER_AUTHORIZATION, "")
+            SPUtils.getInstance().put(Constants.USER_NAME,"")
             startWithPopTo(LoginFragment(),MainFragment::class.java ,true)
         }
         binding.imvLogoutBack.setOnClickListener {
