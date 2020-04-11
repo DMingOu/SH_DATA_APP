@@ -46,7 +46,7 @@
                  <TextView
                  android:id="@+id/tv_student_info"
                  android:layout_width="wrap_content"
-                 android:layout_height="80pt"
+                 android:layout_height="wrap_content"
                  android:layout_centerHorizontal="true"
                  android:layout_below="@id/view_guide_stu_migrate"
                  android:layout_marginTop="25pt"

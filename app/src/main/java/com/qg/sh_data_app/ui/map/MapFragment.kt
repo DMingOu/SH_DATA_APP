@@ -105,7 +105,7 @@ class MapFragment : BaseFragment() {
         rvAdapter = StudentMigrateAdapter(mutableListOf())
         binding.rvStudentMigrate.adapter = rvAdapter
         binding.dlStudentSituation.addTouchView(binding.rlStudentInfo)
-        binding.tvStudentInfo.setOnClickListener {
+        binding.rlStudentInfo.setOnClickListener {
             if (!binding.dlStudentSituation.isTop()) {
                 binding.dlStudentSituation.toTop();
             } else {
