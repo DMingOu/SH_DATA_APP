@@ -52,7 +52,7 @@ class CitySituationFragment : BaseMVVMFragment() {
             pop()
         }
         registerLiveEventObserve()
-        //对RecyclerView进行配置
+        //对城市打卡人数列表RecyclerView进行配置
         //初始化 RecyclerView 的适配器
         rvAdapter = AreaSituationAdapter(mutableListOf())
         binding.rvAreaSituation.layoutManager = LinearLayoutManager(activity)
@@ -71,9 +71,8 @@ class CitySituationFragment : BaseMVVMFragment() {
             }
             override fun onBeforeTriggerClick(v: View, count: Int) {
                 if(count == 1 ){
+                    //给地图页发送 查看此日期热力图事件
                     viewModel?.postShowHeatMapEvent()
-//                    var data: HeatMapData ?= null
-//                    LiveEventBus.get(Constants.SHOW_HEAT_MAP).post(data)
                     start(MapFragment())
                 }
             }

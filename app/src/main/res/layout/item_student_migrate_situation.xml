@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
                 android:layout_width = "match_parent"
-                android:layout_height = "90pt"
+                android:layout_height = "120pt"
                 xmlns:tools = "http://schemas.android.com/tools">
 
       <TextView
       android:id = "@+id/tv_migrate_time"
       android:layout_width = "wrap_content"
       android:layout_height = "wrap_content"
-      tools:text = "广东省 广州市"
-      android:textSize="26pt"
+      tools:text = "2020-04-01至2020-04-08"
+      android:textSize="24pt"
       android:layout_centerVertical="true"
       android:layout_marginStart="30pt"
       />
@@ -18,11 +18,11 @@
       android:id = "@+id/tv_migrate_locations"
       android:layout_width = "wrap_content"
       android:layout_height = "wrap_content"
-      tools:text = "3000"
-      android:textSize="26pt"
+      tools:text = "新疆维吾尔自治区伊犁哈萨克自治州-广东省广州市"
+      android:textSize="24pt"
       android:layout_centerVertical="true"
-      android:layout_marginEnd="20pt"
-      android:layout_alignParentEnd="true"
+      android:layout_toEndOf="@id/tv_migrate_time"
+      android:layout_marginStart="45pt"
       />
 
       <View

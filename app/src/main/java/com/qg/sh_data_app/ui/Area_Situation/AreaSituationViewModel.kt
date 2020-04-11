@@ -33,10 +33,6 @@ class AreaSituationViewModel :ViewModel() {
         const val tag = "AreaSituationViewModel"
     }
 
-//    init {
-//        //初始化ViewModel时自动拉取数据
-//        getAreaSituationData()
-//    }
 
      fun getAreaSituationData(time:String){
         RetrofitManager.getInstance()
@@ -64,9 +60,12 @@ class AreaSituationViewModel :ViewModel() {
     }
 
      fun postShowHeatMapEvent(){
-        LiveEventBus
+         LiveEventBus
                 .get(Constants.SHOW_HEAT_MAP)
                 .post(_areaData.value);
      }
+
+
+
 
 }

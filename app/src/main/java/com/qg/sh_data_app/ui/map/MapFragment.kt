@@ -27,6 +27,7 @@ import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_map.*
 
 /**
  * @description: 地图页面Fragment
@@ -87,13 +88,23 @@ class MapFragment : BaseFragment() {
 
     override fun initViews() {
         configMapWidgets()
+        //地图左上角返回键按钮
+        binding.mapBack.setOnClickListener{
+            pop()
+        }
+    }
 
-
-
+    /**
+     * 展示学生轨迹，初始化底部信息抽屉列表
+     */
+    private fun initStudentInfoLayer(){
+        //将默认隐藏的信息抽屉列表 显示出来
+        dl_student_situation.visibility = View.VISIBLE
+        //初始化底部信息抽屉列表
         binding.rvStudentMigrate.layoutManager = LinearLayoutManager(activity)
         rvAdapter = StudentMigrateAdapter(mutableListOf())
         binding.rvStudentMigrate.adapter = rvAdapter
-        binding.dlStudentSituation.addTouchView(binding.tvStudentInfo)
+        binding.dlStudentSituation.addTouchView(binding.rlStudentInfo)
         binding.tvStudentInfo.setOnClickListener {
             if (!binding.dlStudentSituation.isTop()) {
                 binding.dlStudentSituation.toTop();
@@ -101,116 +112,7 @@ class MapFragment : BaseFragment() {
                 binding.dlStudentSituation.toBottom();
             }
         }
-        binding.mapBack.setOnClickListener{
-            pop()
-        }
 
-        val demo : TwoOrMoreData.DataBean = GsonUtils.fromJson("{\n" +
-                "            \"studentName\": \"李泽创\",\n" +
-                "            \"studentId\": \"12345678903\",\n" +
-                "            \"migrate\": [\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 118.796875,\n" +
-                "                        \"lat\": 32.060253,\n" +
-                "                        \"time\": \"2020-04-01\",\n" +
-                "                        \"city\": \"南京市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 114.05787,\n" +
-                "                        \"lat\": 22.543098,\n" +
-                "                        \"time\": \"2020-04-02\",\n" +
-                "                        \"city\": \"深圳市\"\n" +
-                "                    }\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 114.05787,\n" +
-                "                        \"lat\": 22.543098,\n" +
-                "                        \"time\": \"2020-04-02\",\n" +
-                "                        \"city\": \"深圳市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 112.93881,\n" +
-                "                        \"lat\": 28.228209,\n" +
-                "                        \"time\": \"2020-04-03\",\n" +
-                "                        \"city\": \"长沙市\"\n" +
-                "                    }\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 112.93881,\n" +
-                "                        \"lat\": 28.228209,\n" +
-                "                        \"time\": \"2020-04-03\",\n" +
-                "                        \"city\": \"长沙市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 113.121414,\n" +
-                "                        \"lat\": 23.021547,\n" +
-                "                        \"time\": \"2020-04-04\",\n" +
-                "                        \"city\": \"佛山市\"\n" +
-                "                    }\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 113.121414,\n" +
-                "                        \"lat\": 23.021547,\n" +
-                "                        \"time\": \"2020-04-04\",\n" +
-                "                        \"city\": \"佛山市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 113.264435,\n" +
-                "                        \"lat\": 23.129162,\n" +
-                "                        \"time\": \"2020-04-05\",\n" +
-                "                        \"city\": \"广州市\"\n" +
-                "                    }\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 113.264435,\n" +
-                "                        \"lat\": 23.129162,\n" +
-                "                        \"time\": \"2020-04-05\",\n" +
-                "                        \"city\": \"广州市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 121.4737,\n" +
-                "                        \"lat\": 31.230415,\n" +
-                "                        \"time\": \"2020-04-06\",\n" +
-                "                        \"city\": \"上海市\"\n" +
-                "                    }\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 121.4737,\n" +
-                "                        \"lat\": 31.230415,\n" +
-                "                        \"time\": \"2020-04-06\",\n" +
-                "                        \"city\": \"上海市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 104.06654,\n" +
-                "                        \"lat\": 30.57227,\n" +
-                "                        \"time\": \"2020-04-07\",\n" +
-                "                        \"city\": \"成都市\"\n" +
-                "                    }\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"from\": {\n" +
-                "                        \"lng\": 104.06654,\n" +
-                "                        \"lat\": 30.57227,\n" +
-                "                        \"time\": \"2020-04-07\",\n" +
-                "                        \"city\": \"成都市\"\n" +
-                "                    },\n" +
-                "                    \"to\": {\n" +
-                "                        \"lng\": 81.324135,\n" +
-                "                        \"lat\": 43.916824,\n" +
-                "                        \"time\": \"2020-04-08\",\n" +
-                "                        \"city\": \"伊犁市\"\n" +
-                "                    }\n" +
-                "                }\n" +
-                "            ]\n" +
-                "        }"  , TwoOrMoreData.DataBean::class.java)
-
-        showSingleStudentMigrateTrack(demo)
     }
 
     /**
@@ -247,7 +149,8 @@ class MapFragment : BaseFragment() {
         LiveEventBus
                 .get(Constants.SHOW_MIGRATE_TRACK , TwoOrMoreData.DataBean::class.java)
                 .observeSticky(this , Observer<TwoOrMoreData.DataBean>{
-                     showSingleStudentMigrateTrack(it)
+                    initStudentInfoLayer()
+                    showSingleStudentMigrateTrack(it)
                 })
     }
 
@@ -258,6 +161,7 @@ class MapFragment : BaseFragment() {
      * Todo 开线程执行
      */
     private fun showSingleStudentMigrateTrack(data : TwoOrMoreData.DataBean){
+
         //地图画线
         val points : MutableList<LatLng> = mutableListOf()
         val list = data.migrate
