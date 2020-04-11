@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,11 +16,14 @@ import com.qg.sh_data_app.core.bean.Migrate;
 import com.qg.sh_data_app.core.bean.SingleStudentMigrateData;
 import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.databinding.ItemStuInfoBinding;
+import com.qg.sh_data_app.util.CustomClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.http.POST;
+
+import static com.qg.sh_data_app.application.App.getContext;
 
 public class MigrationStuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
@@ -62,10 +66,15 @@ public class MigrationStuAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.name.setText(mDataBeanList.get(position).getStudentName());
         viewHolder.number.setText(mDataBeanList.get(position).getStudentId());
         viewHolder.migrateNumber.setText(mDataBeanList.get(position).getMigrate().size()+"");
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+        viewHolder.view.setOnClickListener(new CustomClickListener() {
             @Override
-            public void onClick(View view) {
+            protected void onSingleClick() {
                 adapterItemClick.onClick(position);
+            }
+
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
             }
         });
 

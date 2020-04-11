@@ -22,6 +22,7 @@ import com.qg.sh_data_app.core.bean.TwoOrMoreData;
 import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentTwoOrMoreBinding;
 import com.qg.sh_data_app.ui.map.MapFragment;
+import com.qg.sh_data_app.util.CustomClickListener;
 import com.qg.sh_data_app.util.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -78,25 +79,27 @@ public class TwoOrMoreFragment extends BaseFragment {
             //返回迁移搜索界面
             pop();
         });
-        fragmentTwoOrMoreBinding.llBtnToSearch.setOnClickListener(view -> {
-            //传递时间数据
-            SearchOneStuInfo oneStuInfo = new SearchOneStuInfo();
-            oneStuInfo.setStartTime(fragmentTwoOrMoreBinding.tvTwoStartTime.getText().toString());
-            oneStuInfo.setEndTime(fragmentTwoOrMoreBinding.tvTwoEndTime.getText().toString());
-            EventBus.getDefault().postSticky(oneStuInfo);
-            //跳转至轨迹搜索界面
-            start(new TrackSearchFragment());
-        });
-        adapter.setOnItemClickListener(new AdapterItemClick() {
+        fragmentTwoOrMoreBinding.llBtnToSearch.setOnClickListener(new CustomClickListener() {
             @Override
-            public void onClick(int position) {
-                //传递数据并跳转至地图页
+            protected void onSingleClick() {
+                //传递时间数据
+                SearchOneStuInfo oneStuInfo = new SearchOneStuInfo();
+                oneStuInfo.setStartTime(fragmentTwoOrMoreBinding.tvTwoStartTime.getText().toString());
+                oneStuInfo.setEndTime(fragmentTwoOrMoreBinding.tvTwoEndTime.getText().toString());
+                EventBus.getDefault().postSticky(oneStuInfo);
+                //跳转至轨迹搜索界面
+                start(new TrackSearchFragment());
+            }
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
             }
         });
         //item点击事件
         adapter.setOnItemClickListener(new AdapterItemClick() {
             @Override
             public void onClick(int position) {
+                //传递数据并跳转至地图页
                 LiveEventBus.get(Constants.SHOW_MIGRATE_TRACK).post(dataBeanList.get(position));
                 start(new MapFragment());
             }

@@ -34,6 +34,7 @@ import com.qg.sh_data_app.core.net.RetrofitManager;
 import com.qg.sh_data_app.databinding.FragmentMainBinding;
 import com.qg.sh_data_app.ui.Sign_Situation.UnFinishSituationFragment;
 import com.qg.sh_data_app.ui.login.LogoutFragment;
+import com.qg.sh_data_app.util.CustomClickListener;
 import com.qg.sh_data_app.util.FileUtil;
 
 import java.io.File;
@@ -96,46 +97,73 @@ public class MainFragment extends BaseFragment {
     public void initViews() {
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         //增加数据的点击事件
-        binding.btnAddDataMain.setOnClickListener( v -> {
-            //跳转至文件管理器选择文件
-            //权限处理
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            } else {
-                openFileSelector();
+        binding.btnAddDataMain.setOnClickListener(new CustomClickListener() {
+            @Override
+            protected void onSingleClick() {
+                //跳转至文件管理器选择文件
+                //权限处理
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                } else {
+                    openFileSelector();
+                }
+            }
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
             }
         });
-
         //迁移搜索的点击事件
-        binding.btnMigrateSearchMain.setOnClickListener( v-> {
-            start(new MigrationSearchFragment());
+        binding.btnMigrateSearchMain.setOnClickListener(new CustomClickListener() {
+            @Override
+            protected void onSingleClick() {
+                start(new MigrationSearchFragment());
+            }
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
+            }
         });
-
-        binding.btnSignSituationMain.setOnClickListener(v -> {
-            start(new UnFinishSituationFragment());
+        //打卡情况的点击事件
+        binding.btnSignSituationMain.setOnClickListener(new CustomClickListener() {
+            @Override
+            protected void onSingleClick() {
+                start(new UnFinishSituationFragment());
+            }
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
+            }
         });
-
         //左上角头像的点击事件
-        binding.viewAvatarMain.setOnClickListener( v -> {
-            LogoutFragment targetFragment = new LogoutFragment();
+        binding.viewAvatarMain.setOnClickListener(new CustomClickListener() {
+            @Override
+            protected void onSingleClick() {
+                LogoutFragment targetFragment = new LogoutFragment();
 //            CitySituationFragment targetFragment = new CitySituationFragment();
-            Bundle bundle = new Bundle();
-            // 传递分割后的用户名
-            String[] strings = binding.tvWelcome.getText().toString().split(" ，");
-            String userName = strings[0] ;
-            bundle.putString("USERNAME", userName);
-            //为接收方Fragment设置数据
-            targetFragment.setArguments(bundle);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                setExitTransition(new Fade());
-                targetFragment.setEnterTransition(new Fade());
-                targetFragment.setSharedElementEnterTransition(new Fade());
-                targetFragment.setSharedElementReturnTransition(new Fade());
-                extraTransaction()
-                        .addSharedElement(binding.viewAvatarMain, StringUtils.getString(R.string.share_elements_iv_avatar))
-                        .start(targetFragment);
-            } else {
-                start(targetFragment);
+                Bundle bundle = new Bundle();
+                // 传递分割后的用户名
+                String[] strings = binding.tvWelcome.getText().toString().split(" ，");
+                String userName = strings[0] ;
+                bundle.putString("USERNAME", userName);
+                //为接收方Fragment设置数据
+                targetFragment.setArguments(bundle);
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                    setExitTransition(new Fade());
+                    targetFragment.setEnterTransition(new Fade());
+                    targetFragment.setSharedElementEnterTransition(new Fade());
+                    targetFragment.setSharedElementReturnTransition(new Fade());
+                    extraTransaction()
+                            .addSharedElement(binding.viewAvatarMain, StringUtils.getString(R.string.share_elements_iv_avatar))
+                            .start(targetFragment);
+                } else {
+                    start(targetFragment);
+                }
+            }
+
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
             }
         });
     }

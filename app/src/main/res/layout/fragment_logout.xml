@@ -4,13 +4,26 @@
               android:layout_height = "match_parent"
               android:orientation="vertical"
               xmlns:tools = "http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/imv_logout_back"
+            android:layout_width="22pt"
+            android:layout_height="31pt"
+            android:layout_marginStart="36pt"
+            android:src="@drawable/map_back"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
          
 
          <RelativeLayout
          android:layout_width = "match_parent"
          android:layout_height = "122pt"
          android:background="@color/white"
-         android:layout_marginTop="47pt"
+         android:layout_marginTop="13pt"
          >
          
             <ImageView

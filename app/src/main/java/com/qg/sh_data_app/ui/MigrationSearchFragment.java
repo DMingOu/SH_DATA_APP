@@ -26,6 +26,7 @@ import com.qg.sh_data_app.core.bean.SearchAllStuInfo;
 import com.qg.sh_data_app.databinding.FragmentMigrationSearchBinding;
 import com.qg.sh_data_app.ui.Area_Situation.CitySituationFragment;
 import com.qg.sh_data_app.ui.twoOrMore.TwoOrMoreFragment;
+import com.qg.sh_data_app.util.CustomClickListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 import jsc.kit.wheel.base.WheelItem;
@@ -110,88 +111,75 @@ public class MigrationSearchFragment extends BaseFragment {
         });
         //一天：选择时间
         fragmentMigrationSearchBinding.tvOneTime.setOnClickListener(view -> {
-            TimePickerView oneTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
-                @Override
-                public void onTimeSelect(Date date, View v) {
-                    fragmentMigrationSearchBinding.tvOneTime.setTextColor(Color.parseColor("#404040"));
-                    fragmentMigrationSearchBinding.tvOneTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
-                    Log.d(TAG, "onTimeSelect: "+date.toString());
-                }
-            })
-                    .isCenterLabel(true)
-                    .setCancelText("取消")
-                    .setSubmitText("确定")
-            .build();
-            oneTime.show();
+            showTimePicker(fragmentMigrationSearchBinding.tvOneTime);
 //            oneDialog =createTimeDialog(fragmentMigrationSearchBinding.tvOneTime);
         });
         //两天及以上：选择开始时间
         fragmentMigrationSearchBinding.tvStartTime.setOnClickListener(view -> {
-            TimePickerView startTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
-                @Override
-                public void onTimeSelect(Date date, View v) {
-                    fragmentMigrationSearchBinding.tvStartTime.setTextColor(Color.parseColor("#404040"));
-                    fragmentMigrationSearchBinding.tvStartTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
-                    Log.d(TAG, "onTimeSelect: "+date.toString());
-                }
-            })
-                    .isCenterLabel(true)
-                    .setCancelText("取消")
-                    .setSubmitText("确定")
-                    .build();
-            startTime.show();
+            showTimePicker(fragmentMigrationSearchBinding.tvStartTime);
             //startDialog =createTimeDialog(fragmentMigrationSearchBinding.tvStartTime);
         });
         //两天及以上：选择结束时间
         fragmentMigrationSearchBinding.tvEndTime.setOnClickListener(view -> {
-            TimePickerView endTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
-                @Override
-                public void onTimeSelect(Date date, View v) {
-                    fragmentMigrationSearchBinding.tvEndTime.setTextColor(Color.parseColor("#404040"));
-                    fragmentMigrationSearchBinding.tvEndTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
-                    Log.d(TAG, "onTimeSelect: "+date.toString());
-                }
-            })
-                    .isCenterLabel(true)
-                    .setCancelText("取消")
-                    .setSubmitText("确定")
-                    .build();
-            endTime.show();
+            showTimePicker(fragmentMigrationSearchBinding.tvEndTime);
             //endDialog =createTimeDialog(fragmentMigrationSearchBinding.tvEndTime);
         });
         //点击搜索,传相关数据给下一个界面
-        fragmentMigrationSearchBinding.btnSearch.setOnClickListener(view -> {
-            if(fragmentMigrationSearchBinding.tvNumber.getText().toString().equals("一天")){
-                if(fragmentMigrationSearchBinding.tvOneTime.getText().toString().equals("请选择时间")) {
-                    Toast.makeText(getContext(),"请选择时间！",Toast.LENGTH_SHORT).show();
+        fragmentMigrationSearchBinding.btnSearch.setOnClickListener(new CustomClickListener() {
+            @Override
+            protected void onSingleClick() {
+                if(fragmentMigrationSearchBinding.tvNumber.getText().toString().equals("一天")){
+                    if(fragmentMigrationSearchBinding.tvOneTime.getText().toString().equals("请选择时间")) {
+                        Toast.makeText(getContext(),"请选择时间！",Toast.LENGTH_SHORT).show();
+                    }else {
+                        //获取选择的时间
+                        String time = fragmentMigrationSearchBinding.tvOneTime.getText().toString();
+                        //跳转热力图界面
+                        LiveEventBus.get("oneTime").post(time);
+                        start(new CitySituationFragment());
+                    }
+                }else if(fragmentMigrationSearchBinding.tvNumber.getText().toString().equals("两天或两天以上")){
+                    if(!fragmentMigrationSearchBinding.tvStartTime.getText().toString().equals("请选择时间") && !fragmentMigrationSearchBinding.tvEndTime.getText().toString().equals("请选择时间")){
+                        //获取选择的时间
+                        String startTime = fragmentMigrationSearchBinding.tvStartTime.getText().toString();
+                        String endTime = fragmentMigrationSearchBinding.tvEndTime.getText().toString();
+                        SearchAllStuInfo allStuInfo = new SearchAllStuInfo();
+                        allStuInfo.setStartTime(startTime);
+                        allStuInfo.setEndTime(endTime);
+                        //传递数据
+                        EventBus.getDefault().postSticky(allStuInfo);
+                        //跳转迁移轨迹页面
+                        start(new TwoOrMoreFragment());
+                    }else {
+                        Toast.makeText(getContext(),"请选择时间！",Toast.LENGTH_SHORT).show();
+                    }
                 }else {
-                    //获取选择的时间
-                    String time = fragmentMigrationSearchBinding.tvOneTime.getText().toString();
-                    //跳转热力图界面
-                    LiveEventBus.get("oneTime").post(time);
-                    start(new CitySituationFragment());
+                    Toast.makeText(getContext(),"请选择天数！",Toast.LENGTH_SHORT).show();
                 }
-            }else if(fragmentMigrationSearchBinding.tvNumber.getText().toString().equals("两天或两天以上")){
-                if(!fragmentMigrationSearchBinding.tvStartTime.getText().toString().equals("请选择时间") && !fragmentMigrationSearchBinding.tvEndTime.getText().toString().equals("请选择时间")){
-                    //获取选择的时间
-                    String startTime = fragmentMigrationSearchBinding.tvStartTime.getText().toString();
-                    String endTime = fragmentMigrationSearchBinding.tvEndTime.getText().toString();
-                    SearchAllStuInfo allStuInfo = new SearchAllStuInfo();
-                    allStuInfo.setStartTime(startTime);
-                    allStuInfo.setEndTime(endTime);
-                    //传递数据
-                    EventBus.getDefault().postSticky(allStuInfo);
-                    //跳转迁移轨迹页面
-                    start(new TwoOrMoreFragment());
-                }else {
-                    Toast.makeText(getContext(),"请选择时间！",Toast.LENGTH_SHORT).show();
-                }
-            }else {
-                Toast.makeText(getContext(),"请选择天数！",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            protected void onFastClick() {
+                Toast.makeText(getContext(),"请勿重复点击！",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //从底部弹出时间选择器
+    private void showTimePicker(TextView tv){
+        TimePickerView timePickerView = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                tv.setTextColor(Color.parseColor("#404040"));
+                tv.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
+                Log.d(TAG, "onTimeSelect: "+date.toString());
+            }
+        })
+                .isCenterLabel(true)
+                .setCancelText("取消")
+                .setSubmitText("确定")
+                .build();
+        timePickerView.show();
+    }
 //    //时间选择器
 //    private DateTimeWheelDialog createTimeDialog(TextView tvResult) {
 //        Calendar calendar = Calendar.getInstance();

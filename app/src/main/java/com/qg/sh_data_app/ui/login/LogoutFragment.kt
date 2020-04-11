@@ -49,6 +49,9 @@ class LogoutFragment : BaseFragment(){
             SPUtils.getInstance().put(Constants.USER_AUTHORIZATION, "")
             startWithPopTo(LoginFragment(),MainFragment::class.java ,true)
         }
+        binding.imvLogoutBack.setOnClickListener {
+            pop()
+        }
     }
 
     override fun configStatusBar() {

@@ -23,6 +23,7 @@
       android:layout_centerVertical="true"
       android:layout_toEndOf="@id/tv_migrate_time"
       android:layout_marginStart="45pt"
+          android:layout_marginEnd="30pt"
       />
 
       <View
