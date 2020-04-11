@@ -118,6 +118,9 @@ dependencies {
     //liveData-lifecycle
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'
 
+    //圆片化
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
     //底部Sheet
     implementation 'com.github.Vove7.BottomDialog:bottomdialog:2.1-x'
     

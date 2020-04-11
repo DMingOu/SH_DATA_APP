@@ -180,9 +180,19 @@ public class MigrationSearchFragment extends BaseFragment {
         TimePickerView timePickerView = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                tv.setTextColor(Color.parseColor("#404040"));
-                tv.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
-                Log.d(TAG, "onTimeSelect: "+date.toString());
+                try {
+                    if(DateUtils.compare(new SimpleDateFormat("yyyy-MM-dd").format(date),
+                            new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())))){
+                        tv.setTextColor(Color.parseColor("#404040"));
+                        tv.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
+                        Log.d(TAG, "onTimeSelect: "+date.toString());
+                    }else {
+                        Toast.makeText(getContext(),"请选择当前日期之前的日期！",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
             }
         })
                 .isCenterLabel(true)
