@@ -180,7 +180,7 @@ public class MainFragment extends BaseFragment {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
         //intent.setType("application/vnd.ms-excel application/x-excel");
-        this.startActivityForResult(intent, 1);
+        startActivityForResult(intent, 1);
     }
 
     //权限回调
