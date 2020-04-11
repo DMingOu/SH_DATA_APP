@@ -96,14 +96,13 @@ public class MainFragment extends BaseFragment {
     @Override
     public void initViews() {
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        //增加数据的点击事件
+        //导入数据的点击事件
         binding.btnAddDataMain.setOnClickListener(new CustomClickListener() {
             @Override
             protected void onSingleClick() {
                 //跳转至文件管理器选择文件
-                //权限处理
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    MainFragment.this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                 } else {
                     openFileSelector();
                 }
@@ -188,9 +187,10 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case 1:
+            case 0:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openFileSelector();
+                    Log.d(TAG, "onRequestPermissionsResult: 打开了权限");
                 } else {
                     Toast.makeText(getContext(), "请打开权限。", LENGTH_SHORT).show();
                 }

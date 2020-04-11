@@ -45,10 +45,10 @@ import java.util.Random;
 public class MigrationSearchFragment extends BaseFragment {
 
     private FragmentMigrationSearchBinding fragmentMigrationSearchBinding = null;
-    DateTimeWheelDialog oneDialog=null;
-    DateTimeWheelDialog startDialog=null;
-    DateTimeWheelDialog endDialog=null;
-    ColumnWheelDialog dayDialog = null;
+//    DateTimeWheelDialog oneDialog=null;
+//    DateTimeWheelDialog startDialog=null;
+//    DateTimeWheelDialog endDialog=null;
+//    ColumnWheelDialog dayDialog = null;
     private static final String TAG = "MigrationSearchFragment";
 
     @Nullable
